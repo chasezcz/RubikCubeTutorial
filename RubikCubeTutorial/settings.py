@@ -119,3 +119,28 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#############################################################
+# next is for core
+
+# regist variable
+MODEL_LOC = BASE_DIR + '/models/cube3'
+MODEL_NAME = 'model.meta'
+
+
+METHOD = 'nnet'
+
+USE_GPU = False
+GPU_NUMS = [None]
+NUM_PARALLEL = 0
+if len(os.environ['CUDA_VISIBLE_DEVICES']) > 1:
+    GPU_NUMS = [int(x)
+                for x in os.environ['CUDA_VISIBLE_DEVICES'].split(",")]
+else:
+    GPU_NUMS = [None]
+NUM_PARALLEL = len(GPU_NUMS)
+
+
+NNET_PARALLEL = 200
+DEPTH_PENALTY = 0.10
+VERBOSE = False
