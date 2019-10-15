@@ -3,3 +3,6 @@
 
 # file
 *.pyc
+
+# # db
+# db.sqlite3
