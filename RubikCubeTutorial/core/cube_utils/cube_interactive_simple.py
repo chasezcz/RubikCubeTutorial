@@ -4,22 +4,19 @@
 # Adapted from cube code written by David Hogg
 #   https://github.com/davidwhogg/MagicCube
 
-import numpy as np
-# matplotlib.use("TkAgg")
-
-import matplotlib.pyplot as plt
-from matplotlib import widgets
-from projection import Quaternion, project_points
-from random import choice
-from RubikCubeTutorial.core.ml_utils import search_utils
-
 import sys
 import random
 import time
-
-from RubikCubeTutorial.core.solver_algs import Kociemba
-
 import argparse
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from random import choice
+from matplotlib import widgets
+from RubikCubeTutorial.core.ml_utils import search_utils
+from RubikCubeTutorial.core.cube_utils.solver_algs import Kociemba
+from RubikCubeTutorial.core.cube_utils.projection import Quaternion,project_points
 
 
 """

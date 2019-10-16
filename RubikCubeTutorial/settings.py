@@ -54,7 +54,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR+'/template',
+            BASE_DIR+'/pages/template',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,6 +120,10 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR + '/pages/static',
+]
+
 #############################################################
 # next is for core
 
@@ -133,7 +137,7 @@ METHOD = 'nnet'
 USE_GPU = False
 GPU_NUMS = [None]
 NUM_PARALLEL = 0
-if len(os.environ['CUDA_VISIBLE_DEVICES']) > 1:
+if USE_GPU and len(os.environ['CUDA_VISIBLE_DEVICES']) > 1:
     GPU_NUMS = [int(x)
                 for x in os.environ['CUDA_VISIBLE_DEVICES'].split(",")]
 else:

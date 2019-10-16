@@ -18,4 +18,5 @@ from RubikCubeTutorial import view
 
 urlpatterns = [
     url(r'^$', view.getMainView, name='home'),
+    url(r'^testing$', view.getTestView, name='testing')
 ]

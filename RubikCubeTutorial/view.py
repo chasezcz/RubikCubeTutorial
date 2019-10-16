@@ -13,3 +13,7 @@ def getMainView(request):
     context['state'] = state
     context['solution'] = solve(state)
     return render(request, 'index.html', context)
+
+
+def getTestView(request):
+    return render(request, 'copy.html')

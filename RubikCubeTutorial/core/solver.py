@@ -1,10 +1,13 @@
 import os
 import gc
+
 import cPickle as pickle
 import numpy as np
+
 from multiprocessing import Process, Queue
+
 from RubikCubeTutorial import settings
-from RubikCubeTutorial.core.cube_interactive_simple import Cube
+from RubikCubeTutorial.core.cube_utils.cube_interactive_simple import Cube
 from RubikCubeTutorial.core.ml_utils import search_utils, nnet_utils
 
 environment = Cube(N=3, moveType="qtm")
@@ -12,7 +15,8 @@ environment = Cube(N=3, moveType="qtm")
 
 def dataListener(dataQueue, resQueue, gpuNum=None):
     nnet = nnet_utils.loadNnet(
-        settings.MODEL_LOC, settings.MODEL_NAME, settings.USE_GPU, environment, gpuNum=settings.GPU_NUMS)
+        settings.MODEL_LOC, settings.MODEL_NAME, settings.USE_GPU, environment,
+        gpuNum=settings.GPU_NUMS)
     while True:
         data = dataQueue.get()
         nnetResult = nnet(data)
@@ -49,15 +53,19 @@ def heuristicFn_nnet(x):
 
 
 def solve(state):
-
+    # get bfs solver
     BestFS_solve = search_utils.BestFS_solve(
         [state], heuristicFn_nnet, environment, bfs=0)
+    # start search
     isSolved, solveSteps, nodesGenerated_num = BestFS_solve.run(
-        numParallel=settings.NNET_PARALLEL, depthPenalty=settings.DEPTH_PENALTY, verbose=settings.VERBOSE)
+        numParallel=settings.NNET_PARALLEL,
+        depthPenalty=settings.DEPTH_PENALTY,
+        verbose=settings.VERBOSE)
+    # collect unuse memory
     BestFS_solve = []
     del BestFS_solve
     gc.collect()
-
+    # get true solution and verify it
     soln = solveSteps[0]
     assert(validSoln(state, soln, environment))
 

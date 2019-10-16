@@ -1,50 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="zh">
+{% load static %}
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="/jquery.js"></script>
-	<SCRIPT LANGUAGE="JavaScript" SRC="/solver.js"></SCRIPT>
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<SCRIPT LANGUAGE="JavaScript" SRC="{% static 'js/solver.js' %}"></SCRIPT>
 
-	<link rel="stylesheet" type="text/css" href="/solver.css" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/solver.css' %}" />
 	<title>魔方求解器</title>
 
-	<meta name="description" content="线上魔方求解器会计算出一个乱魔方的复原步骤。输入您魔方各面的颜色，点击 求解键，接着按照指示逐步完成复原。" />
-	<meta name="apple-mobile-web-app-title" content="Rubiks Solver">
-	<link rel="canonical" href="https://rubiks-cube-solver.com/zh/" />
-	<meta property="og:title" content="魔方求解器" />
-	<meta property="og:url" content="https://rubiks-cube-solver.com/zh/" />
-	<meta property="og:image" content="/img/og-rubiks-cube-solver.jpg" />
-	<meta property="og:type" content="website">
-	<meta property="og:site_name" content="Rubik's Cube Solver" />
-	<meta property="fb:admins" content="johnny.johnson1986" />
-	<meta property="fb:admins" content="1037899304" />
-	<meta property="fb:app_id" content="355198271187833"/>
-	<meta property="fb:admins" content="fricikoma"/>
-	<meta property="og:description" content="线上魔方求解器会计算出一个乱魔方的复原步骤。输入您魔方各面的颜色，点击 求解键，接着按照指示逐步完成复原。">
-
-	<link rel="alternate" hreflang="en" href="https://rubiks-cube-solver.com/" />
-	<link rel="alternate" hreflang="de" href="https://rubiks-cube-solver.com/de/" />
-	<link rel="alternate" hreflang="es" href="https://rubiks-cube-solver.com/es/" />
-	<link rel="alternate" hreflang="fr" href="https://rubiks-cube-solver.com/fr/" />
-	<link rel="alternate" hreflang="hi" href="https://rubiks-cube-solver.com/hi/" />
-	<link rel="alternate" hreflang="hu" href="https://rubiks-cube-solver.com/hu/" />
-	<link rel="alternate" hreflang="it" href="https://rubiks-cube-solver.com/it/" />
-	<link rel="alternate" hreflang="ja" href="https://rubiks-cube-solver.com/ja/" />
-	<link rel="alternate" hreflang="ko" href="https://rubiks-cube-solver.com/ko/" />
-	<link rel="alternate" hreflang="nl" href="https://rubiks-cube-solver.com/nl/" />
-	<link rel="alternate" hreflang="pl" href="https://rubiks-cube-solver.com/pl/" />
-	<link rel="alternate" hreflang="pt" href="https://rubiks-cube-solver.com/pt/" />
-	<link rel="alternate" hreflang="ro" href="https://rubiks-cube-solver.com/ro/" />
-	<link rel="alternate" hreflang="ru" href="https://rubiks-cube-solver.com/ru/" />
-	<link rel="alternate" hreflang="sv" href="https://rubiks-cube-solver.com/sv/" />
-	<link rel="alternate" hreflang="vi" href="https://rubiks-cube-solver.com/vi/" />
-	<link rel="alternate" hreflang="ar" href="https://rubiks-cube-solver.com/ar/" />
-	<link rel="alternate" hreflang="uk" href="https://rubiks-cube-solver.com/uk/" />
-
 	<link rel="image_src" href="/img/og-rubiks-cube-solver.jpg" />
-
 </head>
 
 <body class="lang-zh">
@@ -52,31 +19,8 @@
 <header>
 	<div class="header">
 		<div class="headerInner clearfix">
-			<a class="bannerLogo" title="Rubiks Cube solver" href="/">
-				魔方求解器
-			</a>
 			<div class="headerRightSide">
 				<div id="languageToggle" title="Select language">
-				</div>
-				<div class="selectlanguage">
-					<a href="/?lang=1" title="Rubik's Cube solver" class="flagen">eng</a>
-					<a href="/es/" title="Programa de resolución del Cubo de Rubik" class="flages">esp</a>
-					<a href="/hi/" title="रूबिक्स क्यूब सॉल्वर" class="flaghi">hin</a>
-					<a href="/fr/" title="Programme de Solution du Rubiks Cube en ligne" class="flagfr">fra</a>
-					<a href="/hu/" title="Rubik-kocka oldó program" class="flaghu">hun</a>
-					<a href="/ru/" title="Решатель Кубика Рубика" class="flagru">rus</a>
-					<a href="/ja/" title="ルービックキューブソルバー" class="flagja">jap</a>
-					<a href="/ar/" title="برنامج حل مكعب الروبيك" class="flagar">ara</a>
-					<a href="/pl/" title="Układacz Kostki Rubika" class="flagpl">pol</a>
-					<a href="/pt/" title="Programa solucionador do Cubo de Rubik online" class="flagpt">por</a>
-					<a href="/de/" title="Online Rubik's Cube Löser" class="flagde">ger</a>
-					<a href="/nl/" title="Online Rubik's Kubus oplossings programma" class="flagnl">dut</a>
-					<a href="/it/" title="Programma si puo calcolare la soluzione cubo di Rubik" class="flagit">ita</a>
-					<a href="/ro/" title="Program pentru rezolvarea Cubului Rubik" class="flagro">rom</a>
-					<a href="/vi/" title="Công cụ giải mã khối Rubik" class="flagvi">vie</a>
-					<a href="/ko/" title="루빅 큐브 맞추기" class="flagko">kor</a>
-					<a href="/sv/" title="Rubiks Kub Lösare" class="flagsv">swe</a>
-					<a href="/uk/" title="Програма решатель Online кубик Рубіка" class="flaguk">ukr</a>
 				</div>
 				<div class="kisreklam">
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
