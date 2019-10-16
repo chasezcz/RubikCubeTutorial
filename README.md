@@ -2,6 +2,16 @@
 
 Based on DeepCubeA's deep learning technology, target to teach people who are interested in solving rubik's cube how to recover the six-sided 3x3 rubik's cube.
 
+## Todo
+
+| Index  | Attribute | Status | Function |
+| :-----: | :----: | :----: | :---- |
+1 | server | done | recover rubik's cube from specific state.
+2 | server and web | undo | figure out the relationship between the server state data and the rubik's cube presentation of the web.
+3 | server or web| undo | random scramb state of rubik's cube.
+4 | web | undo | set specific state of rubik's cube.
+5 | web | undo | according to the obtained steps(from server), give the solution step diagram and animation
+
 ## 1. Base
 
 Thanks to [DeepCubeA' code](https://codeocean.com/capsule/5723040/tree/v1)
