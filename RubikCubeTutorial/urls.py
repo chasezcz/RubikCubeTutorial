@@ -19,6 +19,8 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    url(r'^$', view.getMainView, name='home'),
-    url(r'^RubikWorker.js$', TemplateView.as_view(template_name="RubikWorker.js"))
+    url(r'^$', view.getMainView),
+    url(r'^cube=(\d+)$', view.getCubeState),
+    url(r'^RubikWorker.js$',
+        TemplateView.as_view(template_name="RubikWorker.js"))
 ]
