@@ -10,10 +10,10 @@ def getMainView(request):
 
 
 def getCubeState(request, state):
-    context = dict()
+    # context = dict()
 
-    # here we figure out the cube' state.
-    context['state'] = state
-    context['solution'] = solve(state)
-
-    return HttpResponse(context)
+    # # here we figure out the cube' state.
+    # context['state'] = state
+    # context['solution'] = solve(state)
+    # return HttpResponse(context)
+    return render(request, 'solver.html')

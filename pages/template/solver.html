@@ -1,0 +1,295 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/solver.js' %}"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/solver.css' %}" />
+	<title>魔方解法</title>
+
+	<link rel="image_src" href="{% static 'img/og-rubiks-cube-solver.jpg' %}" />
+</head>
+
+<body class="lang-zh">
+
+<header>
+	<div class="header">
+		<div class="headerInner clearfix">
+			<a class="bannerLogo" title="Rubiks Cube solver" href="">
+				魔方求解器
+			</a>
+		</div>
+	</div>
+	<div id="switchViewWrap">
+		<div id="switchView">
+			<a id="tothreeDView" title="3D view" class="active">3D</a>
+			<a id="toflatView" title="Flat view">Flat</a>
+			<a id="tokociembaView" title="Kociemba view">Koci</a>
+			<a id="getHelp" class="scrollLink" title="Help" href="#article"></a>
+		</div>
+	</div>
+</header>
+
+<div class="solverAndAd">
+	<div id="currentRot">
+		<div id="result" class="cubeOrient13">
+			<div id="rubiksCubeSolver" class="clearfix">
+				<div id="hibaUzenet">
+					<div id="closeHibauzenet" title="Close the box">x</div>
+					<span id="hiba">Messages will be shown. For example when a cube is not scrambled properly.</span>
+				</div>
+				<div id="wrapCube" class="threeDView">
+					<div id="face1">
+						<span class="rotArrow" id="rotUp"></span>
+						<span class="rotArrow" id="rotUpI"></span>
+						<div data-field="1" class="color1" id="sticker1"></div>
+						<div data-field="2" class="color1" id="sticker2"></div>
+						<div data-field="3" class="color1" id="sticker3"></div>
+						<div data-field="4" class="color1" id="sticker4"></div>
+						<div data-field="5" class="color1" id="sticker5"></div>
+						<div data-field="6" class="color1" id="sticker6"></div>
+						<div data-field="7" class="color1" id="sticker7"></div>
+						<div data-field="8" class="color1" id="sticker8"></div>
+						<div data-field="9" class="color1" id="sticker9"></div>
+					</div>
+					<div id="face2">
+						<span class="rotArrow" id="rotLeft"></span>
+						<span class="rotArrow" id="rotLeftI"></span>
+						<div data-field="10" class="color2" id="sticker10"></div>
+						<div data-field="11" class="color2" id="sticker11"></div>
+						<div data-field="12" class="color2" id="sticker12"></div>
+						<div data-field="13" class="color2" id="sticker13"></div>
+						<div data-field="14" class="color2" id="sticker14"></div>
+						<div data-field="15" class="color2" id="sticker15"></div>
+						<div data-field="16" class="color2" id="sticker16"></div>
+						<div data-field="17" class="color2" id="sticker17"></div>
+						<div data-field="18" class="color2" id="sticker18"></div>
+					</div>
+					<div id="face3">
+						<span class="rotArrow" id="rotFront"></span>
+						<span class="rotArrow" id="rotFrontI"></span>
+						<div data-field="19" class="color3" id="sticker19"></div>
+						<div data-field="20" class="color3" id="sticker20"></div>
+						<div data-field="21" class="color3" id="sticker21"></div>
+						<div data-field="22" class="color3" id="sticker22"></div>
+						<div data-field="23" class="color3" id="sticker23"></div>
+						<div data-field="24" class="color3" id="sticker24"></div>
+						<div data-field="25" class="color3" id="sticker25"></div>
+						<div data-field="26" class="color3" id="sticker26"></div>
+						<div data-field="27" class="color3" id="sticker27"></div>
+					</div>
+					<div id="face4">
+						<span class="rotArrow" id="rotRight"></span>
+						<span class="rotArrow" id="rotRightI"></span>
+						<div data-field="28" class="color4" id="sticker28"></div>
+						<div data-field="29" class="color4" id="sticker29"></div>
+						<div data-field="30" class="color4" id="sticker30"></div>
+						<div data-field="31" class="color4" id="sticker31"></div>
+						<div data-field="32" class="color4" id="sticker32"></div>
+						<div data-field="33" class="color4" id="sticker33"></div>
+						<div data-field="34" class="color4" id="sticker34"></div>
+						<div data-field="35" class="color4" id="sticker35"></div>
+						<div data-field="36" class="color4" id="sticker36"></div>
+					</div>
+					<div id="face5">
+						<span class="rotArrow" id="rotBack"></span>
+						<span class="rotArrow" id="rotBackI"></span>
+						<div data-field="37" class="color5" id="sticker37"></div>
+						<div data-field="38" class="color5" id="sticker38"></div>
+						<div data-field="39" class="color5" id="sticker39"></div>
+						<div data-field="40" class="color5" id="sticker40"></div>
+						<div data-field="41" class="color5" id="sticker41"></div>
+						<div data-field="42" class="color5" id="sticker42"></div>
+						<div data-field="43" class="color5" id="sticker43"></div>
+						<div data-field="44" class="color5" id="sticker44"></div>
+						<div data-field="45" class="color5" id="sticker45"></div>
+					</div>
+					<div id="face6">
+						<span class="rotArrow" id="rotDown"></span>
+						<span class="rotArrow" id="rotDownI"></span>
+						<div data-field="46" class="color6" id="sticker46"></div>
+						<div data-field="47" class="color6" id="sticker47"></div>
+						<div data-field="48" class="color6" id="sticker48"></div>
+						<div data-field="49" class="color6" id="sticker49"></div>
+						<div data-field="50" class="color6" id="sticker50"></div>
+						<div data-field="51" class="color6" id="sticker51"></div>
+						<div data-field="52" class="color6" id="sticker52"></div>
+						<div data-field="53" class="color6" id="sticker53"></div>
+						<div data-field="54" class="color6" id="sticker54"></div>
+					</div>
+				</div>
+			</div>
+			<div id="pleasewait">
+
+				<span id="mess28">Calculating the solution.</span><br /><img src="/img/wait.gif" alt="cube gif" /><br /><span id="mess29">Please wait!</span>
+				<div id="wrapLoadingBar">
+					<div id="loadingBar">
+					</div>
+				</div>
+			</div>
+			<div id="wrapSolverOverlays">
+				<div id="vigyazzKetszer">
+					2X
+				</div>
+				<div id="rotacioSzoveg">
+				</div>
+			</div>
+			<div id="vezerloPult">
+				<div id="vezerloPultRow">
+					<div id="kazetofon">
+						<a id="prevButton" title="">Prev</a>
+						<a id="pauseButton" title="">Pause</a>
+						<a id="playButton" title="">Play</a>
+						<a id="stopButton" title="">Stop</a>
+						<a id="nextButton" title="">Next</a>
+					</div>
+					<div id="slidecontainer">
+						<input title="Playback speed" type="range" min="250" max="5000" value="3000" class="slider" id="speedSlider">
+						<span id="currentSpeedDisplay">3 s/rot</span>
+					</div>
+				</div>
+				<div id="segedvaltozo">
+					<div class="hanysztep">&nbsp;</div>
+					<span id="algoritmusHanyadik0">&nbsp;</span>
+				</div>
+				<div id="backToScramble">
+					<a href="/" id="mess11"><span></span>  </a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="wrapStepByStep">
+	<div id="stepByStep">
+	</div>
+</div>
+
+<a class="floatingTutorial" id="tutorialLink" href="/how-to-solve/" title="Learn to solve the Rubik's Cube" target="_blank">
+</a>
+
+<div class="wrapArticle clearfix">
+	<div class="article" id="article">
+		<article>
+
+			<h1>魔方解法</h1>
+			<p><strong>等待程式计算并回传解答。这多半在20秒内会完成，但有时会稍长，请耐心等候。 <br />
+			拿起您手中的魔方，将中间区块为黄色那面朝上，橙色面朝自己，依照上方的指示执行旋转步骤。您可以用自己喜好的速度回放动画。</strong></p>
+			<h3>打乱无效的错误信息</h3>
+			<p>如果程式不断的回传此信息，那很有可能是因为您的魔方曾经被拆开过，并被重组成无解的状态。请把它拆开，并重组回还原状态。</p>
+
+			<h3>如果您成功解开，请给我们点个赞！</h3>
+
+			<div id="hiddenLanguageBits">
+				<span id="langMessage0">zh</span>
+				<span id="langMessage1">每个颜色都必须被添加正好九次</span>
+				<span id="langMessage2">每一边都必须被添加一次</span>
+				<span id="langMessage3">一个边需要被反转</span>
+				<span id="langMessage4">每一角都必须被添加一次</span>
+				<span id="langMessage5">一个角需要被扭转</span>
+				<span id="langMessage6">两个边或两个角需要被交换</span>
+				<span id="langMessage7">旋转</span>
+				<span id="langMessage8">打乱无效</span>
+				<span id="langMessage9">找不出解答</span>
+				<span id="langMessage10">调整原始定向</span>
+				<span id="langMessage11">返回设置</span>
+				<span id="langMessage12">点击这里取得逐层解法</span>
+				<span id="langMessage13">点击“求解”键前请配置魔方打乱位置</span>
+				<span id="langMessage14">关闭本视窗并检查您的魔方！</span>
+
+				<span id="langMessage15">设置乱魔方后，点击“求解”键来找出还原方法。</span>
+				<span id="langMessage16">求解</span>
+				<span id="langMessage17">每个颜色都必须被添加正好九次</span>
+				<span id="langMessage18">一个颜色在中间区块不能使用一次以上。</span>
+
+				<span id="langMessage19">明确</span>
+				<span id="langMessage20">重设</span>
+				<span id="langMessage21">打乱</span>
+				<span id="langMessage22">错误</span>
+				<span id="langMessage23">分享此页面</span>
+				<span id="langMessage24">https://cube3x3.com/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%AD%94%E6%96%B9/</span>
+				<span id="langMessage25">如何解决魔方</span>
+				<span id="langMessage26">有无色的领域</span>
+				<span id="langMessage27">禁用 </span>
+				<span id="langMessage28">计算解决方案</span>
+				<span id="langMessage29">请稍候！</span>
+				<span id="langMessage30">黑白模式激活 </span>
+				<span id="langMessage31">白色</span>
+				<span id="langMessage32">橙子</span>
+				<span id="langMessage33">绿色</span>
+				<span id="langMessage34">红</span>
+				<span id="langMessage35">蓝色</span>
+				<span id="langMessage36">黄色</span>
+				<span id="langMessage37">起始位置</span>
+				<span id="langMessage38">完成！</span>
+				<span id="langMessage39"> </span>
+				<span id="langMessage40"> </span>
+			</div>
+		</article>
+
+		<div id="callToAddThis">
+			<ul>
+				<li><a rel="external nofollow" class="sharefb" target="blank" href="https://www.facebook.com/sharer/sharer.php?u=https://rubiks-cube-solver.com/">Facebook</a></li>
+				<li><a rel="external nofollow" class="sharetw" target="blank" href="https://twitter.com/home?status=https://rubiks-cube-solver.com/">Twitter</a></li>
+				<li><a rel="external nofollow" class="shareli" target="blank" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://rubiks-cube-solver.com&amp;title=Rubik's%20Cube%20solver%20program&amp;summary=Couldn't%20figure%20out%20how%20to%20solve%20your%20Rubik's%20Cube?%20Just%20set%20the%20colors%20of%20the%20mixed%20puzzle,%20hit%20the%20solve%20button%20and%20follow%20the%20steps%20leading%20to%20the%20solution.%20&amp;source=">LinkedIn</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+</div>
+
+
+    <div id="debugMode">
+      <div id="input">
+        <div id="generate"><button id="generateButton">Generate Kociemba Tables</button></div>
+        <details id="progress" hidden="hidden">
+          <summary><progress id="bar" value="0" max="22484"></progress></summary>
+          <ol id="details">
+          </ol>
+        </details>
+        <div id="random"><button id="randomButton">Random</button><button id="clean">Clean</button><button id="clear">Empty</button></div>
+        <div id="solver"><input type="text" id="cube" maxlength="54" spellcheck="false" value="____U________R________F________D________L________B____"><button id="verify">Verify</button><button id="solve" disabled="disabled">Solve</button></div>
+		<div id="settigns">
+			<label for="maxmoves">Max Moves: </label><input type="number" id="maxmoves" value="20" min="16" max="24">
+            <label for="maxtime">Max Time: </label><input type="number" id="maxtime" value="30">
+            <label for="autocomplete">Autocomplete</label> <input type="checkbox" id="autocomplete" checked="unchecked">
+		</div>
+        <div id="entry">
+          <div id="currentColor"></div>
+        </div>
+      </div>
+      <div id="output">
+        <span id="outputText">Solution: <span id="solution"> </span></span>
+      </div>
+    </div>
+
+
+<div id="alertBox">
+	<div id="alertBoxClose" title="Close">x</div>
+	<div id="alertBoxInner" class="clearfix">
+		<a id="floatingTutorialAlert" href="/how-to-solve/" target="_blank"><span>&swarr;</span>Learn how to solve the Rubik's Cube! </a>
+		<div id="alertBoxRight">
+			<h2 id="callToLikeShare">Like and Share if You Managed to Solve Your Cube</h2>
+			<div id="alertBoxContent">Thanks</div>
+			<div id="callToAddThis2">
+			</div>
+		</div>
+	</div>
+</div>
+<div id="alertShadow">
+</div>
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-61900924-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-61900924-1');
+</script>
+</body>
+</html>

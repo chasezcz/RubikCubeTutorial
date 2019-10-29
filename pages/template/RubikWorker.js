@@ -48,7 +48,8 @@ function() {
         } else if ("generateTable" == t.data.type) x(t.data.table, t.data);
         else if ("CoordCube" == t.data.type) for (var o in t.data.cc) 0 == o.indexOf("Slice") ? u[o] = new Int8Array(t.data.cc[o]) : u[o] = t.data.cc[o];
         else if ("solve" == t.data.type) {
-            var i = rt.solution(t.data.cube, t.data.maxDepth || 20, t.data.maxTime || 10, !!t.data.useSeparator); - 1 == i.indexOf("Error") && (i = i.substring(0, i.length - 1)),
+            var i = rt.solution(t.data.cube, t.data.maxDepth || 20, t.data.maxTime || 10, !!t.data.useSeparator);
+                - 1 == i.indexOf("Error") && (i = i.substring(0, i.length - 1)),
             postMessage({
                 type: "solution",
                 result: i,
@@ -770,15 +771,15 @@ function() {
             }
             return o
         },
-        solution: function(t, r, o, i) {
+        solution: function(state, r, o, i) {
             var e, n = new Int32Array(6);
             try {
-                for (var a = 0; 54 > a; a++) n[C.valueOf(t.charAt(a)).ordinal()]++
+                for (var a = 0; 54 > a; a++) n[C.valueOf(state.charAt(a)).ordinal()]++
             } catch(s) {
                 return "Error 1"
             }
             for (var a = 0; 6 > a; a++) if (9 != n[a]) return "Error 1";
-            var R = new h(t),
+            var R = new h(state),
             f = R.toCubieCube();
             if (0 != (e = f.verify())) return "Error " + Math.abs(e);
             var F = new u(f);
