@@ -20,8 +20,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^$', view.getMainView),
-    # url(r'^cube=(\d+)$', view.getCubeState),
-    url(r'^solution(.*)$', view.getCubeState),
+    url(r'^zh$', view.getMainView),
+    url(r'^getSolution=(\S+)$', view.getCubeState),
+    url(r'^cube=.*$', view.getSolvePage),
     url(r'^RubikWorker.js$',
         TemplateView.as_view(template_name="RubikWorker.js"))
 ]

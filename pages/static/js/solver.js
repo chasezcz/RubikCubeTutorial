@@ -59,7 +59,7 @@ function initVariables() {
         warning(mess[22], x)
     } else {
         for ($(_0xd590[25])[_0xd590[24]](function() {
-            $(this)[_0xd590[22]](_0xd590[21], $(this)[_0xd590[22]](_0xd590[21]) + _0xd590[23] + urlkocka)
+            $(this)[_0xd590[22]](_0xd590[21], $(this)[_0xd590[22]](_0xd590[21]) + "cube=" + urlkocka)
         }),
         a = urlkocka[_0xd590[27]](_0xd590[26]),
         i = 1; 54 >= i; i++)
@@ -293,7 +293,8 @@ function kociembaFieldsTransform() {
       , c = []
       , t = []
       , o = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 37, 38, 39, 40, 41, 42, 43, 44, 45, 19, 20, 21, 22, 23, 24, 25, 26, 27, 10, 11, 12, 13, 14, 15, 16, 17, 18, 46, 47, 48, 49, 50, 51, 52, 53, 54, 28, 29, 30, 31, 32, 33, 34, 35, 36];
-    for (kind = 1; 54 >= kind; kind++)
+
+      for (kind = 1; 54 >= kind; kind++)
         c[kind] = 0,
         1 == a[kind] && (c[kind] = _0xd590[41]),
         2 == a[kind] && (c[kind] = _0xd590[43]),
@@ -318,9 +319,9 @@ function warning(e, x) {
 }
 function getUrlVars() {
     var e = {}
-      , x = window[_0xd590[137]][_0xd590[21]][_0xd590[136]](/[?&]+([^=&]+)=([^&]*)/gi, function(c, t, o) {
-        e[t] = o
-    });
+    , x = window[_0xd590[137]]["pathname"]["replace"]("/cube=","");
+    e["cube"]=x;
+    // console.log(e)
     return e
 }
 $(document)[_0xd590[216]](function() {
@@ -644,7 +645,7 @@ function refreshSolveLink() {
     for (d = 1; 54 >= d; d++)
         0 == a[d] && e++;
     1 <= e && (error = mess[26] + _0xd590[223] + e + _0xd590[224]);
-    var _ = window[_0xd590[137]][_0xd590[21]][_0xd590[136]](_0xd590[167], _0xd590[26]) + _0xd590[225];
+    var _ = window[_0xd590[137]][_0xd590[21]][_0xd590[136]](_0xd590[167], _0xd590[26]) + "cube=0";
     if (error == _0xd590[0]) {
         for (var d = 1; 55 > d; d++)
             _ += a[d];
@@ -1921,15 +1922,20 @@ typeof Cube == _0xd590[270] || function() {
             })
         },
         solveCube: function(e, x, c, t, o, r, l) {
+            console.log("fuck")
             if (!Cube[_0xd590[378]])
                 throw new Error(_0xd590[379]);
+
             var _ = function(n) {
+
+
                 if (n[_0xd590[371]][_0xd590[370]] == _0xd590[380] && n[_0xd590[371]][_0xd590[15]] == e) {
                     if (0 == n[_0xd590[371]][_0xd590[372]][_0xd590[88]](_0xd590[381]) && errorCallback)
                         errorCallback(parseInt(n[_0xd590[371]][_0xd590[372]][_0xd590[276]](6, 7)));
                     else {
                         var u = n[_0xd590[371]][_0xd590[372]][_0xd590[276]](0, n[_0xd590[371]][_0xd590[372]][_0xd590[12]] - 1);
                         t ? x(Cube[_0xd590[366]](u)) : x(u)
+
                     }
                     Cube[_0xd590[375]][_0xd590[374]](_0xd590[373], _, !1)
                 }
@@ -1942,6 +1948,7 @@ typeof Cube == _0xd590[270] || function() {
                 useSeparator: !!l,
                 type: _0xd590[382]
             };
+
             Cube[_0xd590[375]][_0xd590[29]](d)
         },
         generateTables: function(e, x) {
@@ -2367,8 +2374,8 @@ document[_0xd590[2]](_0xd590[472], function() {
         o[_0xd590[416]](t)
     }
     if (document[_0xd590[61]](_0xd590[448])[_0xd590[2]](_0xd590[143], setColorBlank, !1),
-    window[_0xd590[137]][_0xd590[491]] != _0xd590[26]) {
-        var r = getQueryString(window[_0xd590[137]][_0xd590[491]][_0xd590[276]](1))
+    window[_0xd590[137]]["pathname"] != _0xd590[26]) {
+        var r = getQueryString(window["location"]["pathname"]["replace"]("/", ""))
           , l = {
             state: r
         };

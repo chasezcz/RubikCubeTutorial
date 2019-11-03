@@ -1,19 +1,27 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from RubikCubeTutorial.core.solver import solve
 import cPickle as pickle
 import numpy as np
 
 
 def getMainView(request):
+    # return the main page
     return render(request, 'index.html')
 
 
-def getCubeState(request, state):
-    # context = dict()
-
-    # # here we figure out the cube' state.
-    # context['state'] = state
-    # context['solution'] = solve(state)
-    # return HttpResponse(context)
+def getSolvePage(request):
+    # return the resolution page
     return render(request, 'solver.html')
+
+
+def getCubeState(request, state):
+    # solve the request of query specified cube.
+
+    context = {
+        "state": state,
+        "solution": solve(state)
+    }
+    print(context)
+
+    return JsonResponse(context)

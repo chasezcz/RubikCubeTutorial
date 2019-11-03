@@ -292,7 +292,8 @@ function kociembaFieldsTransform() {
       , c = []
       , t = []
       , o = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 37, 38, 39, 40, 41, 42, 43, 44, 45, 19, 20, 21, 22, 23, 24, 25, 26, 27, 10, 11, 12, 13, 14, 15, 16, 17, 18, 46, 47, 48, 49, 50, 51, 52, 53, 54, 28, 29, 30, 31, 32, 33, 34, 35, 36];
-    for (kind = 1; 54 >= kind; kind++)
+    console.log(a)
+      for (kind = 1; 54 >= kind; kind++)
         c[kind] = 0,
         1 == a[kind] && (c[kind] = "U"),
         2 == a[kind] && (c[kind] = "L"),
@@ -2033,6 +2034,7 @@ worker["addEventListener"]("message", function(e) {
     else if (e["data"]["type"] == "CoordCube") {
         document["getElementById"]("bar")["outerHTML"] = "Done in " + totalTime + "ms",
         document["getElementById"]("solve")["disabled"] = !1,
+        console.log("coord there ")
         worker["postMessage"]({
             type: "solve",
             cube: document["getElementById"]("cube")["value"],
@@ -2366,8 +2368,8 @@ document["addEventListener"]("DOMContentLoaded", function() {
         o["appendChild"](t)
     }
     if (document["getElementById"]("currentColor")["addEventListener"]("click", setColorBlank, !1),
-    window["location"]["search"] != "") {
-        var r = getQueryString(window["location"]["search"]["substring"](1))
+    window["location"]["pathname"] != "") {
+        var r = getQueryString(window["location"]["pathname"]["replace"]("/", ""))
           , l = {
             state: r
         };
