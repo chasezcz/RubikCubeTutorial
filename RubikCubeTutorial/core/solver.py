@@ -52,33 +52,23 @@ def heuristicFn_nnet(x):
     return(results)
 
 
-def solveByKociemba(state):
-    pass
-
-
-def solve(stateStr):
-    # convert state str to np array
-
-    # state = np.fromstring(stateStr, dtype=int)
-    print(stateStr)
-
+def solve(state):
     # get bfs solver
-    # BestFS_solve = search_utils.BestFS_solve(
-    #     [state], heuristicFn_nnet, environment, bfs=0)
-    # # start search
-    # isSolved, solveSteps, nodesGenerated_num = BestFS_solve.run(
-    #     numParallel=settings.NNET_PARALLEL,
-    #     depthPenalty=settings.DEPTH_PENALTY,
-    #     verbose=settings.VERBOSE)
-    # # collect unuse memory
-    # BestFS_solve = []
-    # del BestFS_solve
-    # gc.collect()
-    # # get true solution and verify it
-    # soln = solveSteps[0]
-    # assert(validSoln(state, soln, environment))
-    # return soln
-    return "R U U R'"
+    BestFS_solve = search_utils.BestFS_solve(
+        [state], heuristicFn_nnet, environment, bfs=0)
+    # start search
+    isSolved, solveSteps, nodesGenerated_num = BestFS_solve.run(
+        numParallel=settings.NNET_PARALLEL,
+        depthPenalty=settings.DEPTH_PENALTY,
+        verbose=settings.VERBOSE)
+    # collect unuse memory
+    BestFS_solve = []
+    del BestFS_solve
+    gc.collect()
+    # get true solution and verify it
+    soln = solveSteps[0]
+    assert(validSoln(state, soln, environment))
+    return soln
 
 
 def validSoln(state, soln, Environment):

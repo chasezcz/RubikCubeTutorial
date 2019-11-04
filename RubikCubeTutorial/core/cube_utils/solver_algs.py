@@ -3,6 +3,7 @@ import subprocess
 import numpy as np
 import os
 import sys
+import kociemba
 
 
 class Kociemba:
@@ -28,7 +29,7 @@ class Kociemba:
             0: 'U', 1: 'D', 2: 'L', 3: 'R', 4: 'B', 5: 'F'}
         kociemba_input = "".join([colors_to_kociemba_input[x]
                                   for x in colors_kociemba_ordered])
-
+        print(kociemba_input)
         # Solve
         kociembaSoln = kociemba.solve(kociemba_input).split(" ")
 
@@ -114,10 +115,10 @@ class Optimal:
             solns.append(moves)
 
         for soln_stat in soln_stats:
-            idx = int(re.search('Solved\s+([0-9]+)', soln_stat).group(1)) - 1
+            idx = int(re.search(r'Solved\s+([0-9]+)', soln_stat).group(1)) - 1
             nodesGenerated_num_idx = int(
-                re.search('probes\s+([0-9]+)', soln_stat).group(1))
-            time = float(re.search('time\s+(\S+)', soln_stat).group(1))
+                re.search(r'probes\s+([0-9]+)', soln_stat).group(1))
+            time = float(re.search(r'time\s+(\S+)', soln_stat).group(1))
 
             nodesGenerated_num[idx] = nodesGenerated_num_idx
             times[idx] = time
