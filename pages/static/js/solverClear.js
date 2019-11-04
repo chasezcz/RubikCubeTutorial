@@ -205,6 +205,7 @@ function kiirarrayt() {
         16 == step[i] && (e = "R2"),
         17 == step[i] && (e = "B2"),
         18 == step[i] && (e = "D2"),
+        console.log(e),
         document["getElementById"]("segedvaltozo")["innerHTML"] = document["getElementById"]("segedvaltozo")["innerHTML"] + " <span id='algoritmusHanyadik" + i + "' onclick='playingBackTheSolution = 0;eddigkiir(" + i + ");'>" + e + "</span>";
     kiirStepByStep()
 }
@@ -1931,6 +1932,7 @@ typeof Cube == "object" || function() {
                         var u = n["data"]["result"]["substring"](0, n["data"]["result"]["length"] - 1);
                         t ? x(Cube["movesetToArray"](u)) : x(u)
                     }
+                    console.log(u)
                     Cube["worker"]["removeEventListener"]("message", _, !1)
                 }
             };
@@ -2098,6 +2100,9 @@ worker["addEventListener"]("message", function(e) {
             megprobalKirakniEnnyiLepesben = 70))
         } else {
             var l = Cube["movesetToArray"](e["data"]["result"]);
+            console.log(l);
+            console.log(l);
+
             buildOutput(l),
             pushState()
         }
@@ -2118,6 +2123,7 @@ function buildOutput(e) {
         x["appendChild"](t),
         e[c]["el"] = t;
     stp = e["length"];
+    console.log(e);
     for (var c = 0; c < e["length"]; c++)
         e[c]["text"] == "U" && (step[c + 1] = 1),
         e[c]["text"] == "U'" && (step[c + 1] = 2),

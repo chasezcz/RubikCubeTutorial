@@ -53,7 +53,6 @@ function() {
         else if ("CoordCube" == t.data.type)
             for (var o in t.data.cc) 0 == o.indexOf("Slice") ? u[o] = new Int8Array(t.data.cc[o]) : u[o] = t.data.cc[o];
         else if ("solve" == t.data.type) {
-            // var i = rt.solution(t.data.cube, t.data.maxDepth || 20, t.data.maxTime || 10, !!t.data.useSeparator);
             var httpRequest = new XMLHttpRequest();
             var solution;
             httpRequest.open('GET', './getSolution=' + t.data.cube, true);
@@ -68,7 +67,12 @@ function() {
                     })
                 }
             };
-
+            // var i = rt.solution(t.data.cube, t.data.maxDepth || 20, t.data.maxTime || 10, !!t.data.useSeparator);
+            // postMessage({
+            //     type: "solution",
+            //     result: i,
+            //     cube: t.data.cube
+            // })
         }
     }
 

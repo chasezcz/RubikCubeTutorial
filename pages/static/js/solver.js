@@ -186,8 +186,9 @@ function kiirarrayt() {
     document[_0xd590[61]](_0xd590[82])[_0xd590[59]] = _0xd590[83] + stp + _0xd590[84] + mess[7] + _0xd590[85],
     osszlepesszam = stp;
     var e = _0xd590[86];
+    // console.log(step);
     for (i = 1; i <= stp; i++)
-        -1 == (document[_0xd590[89]] + "")[_0xd590[88]](_0xd590[87]) && 16 > step[i] && ++step[i],
+        // 16 > step[i] && ++step[i],
         1 == step[i] && (e = _0xd590[41]),
         2 == step[i] && (e = _0xd590[90]),
         3 == step[i] && (e = _0xd590[43]),
@@ -206,6 +207,7 @@ function kiirarrayt() {
         16 == step[i] && (e = _0xd590[56]),
         17 == step[i] && (e = _0xd590[57]),
         18 == step[i] && (e = _0xd590[58]),
+        // console.log(document[_0xd590[61]](_0xd590[82])[_0xd590[59]] + _0xd590[96] + i + _0xd590[97] + i + _0xd590[98] + e + _0xd590[63]),
         document[_0xd590[61]](_0xd590[82])[_0xd590[59]] = document[_0xd590[61]](_0xd590[82])[_0xd590[59]] + _0xd590[96] + i + _0xd590[97] + i + _0xd590[98] + e + _0xd590[63];
     kiirStepByStep()
 }
@@ -1927,15 +1929,13 @@ typeof Cube == _0xd590[270] || function() {
                 throw new Error(_0xd590[379]);
 
             var _ = function(n) {
-
-
                 if (n[_0xd590[371]][_0xd590[370]] == _0xd590[380] && n[_0xd590[371]][_0xd590[15]] == e) {
                     if (0 == n[_0xd590[371]][_0xd590[372]][_0xd590[88]](_0xd590[381]) && errorCallback)
                         errorCallback(parseInt(n[_0xd590[371]][_0xd590[372]][_0xd590[276]](6, 7)));
                     else {
                         var u = n[_0xd590[371]][_0xd590[372]][_0xd590[276]](0, n[_0xd590[371]][_0xd590[372]][_0xd590[12]] - 1);
                         t ? x(Cube[_0xd590[366]](u)) : x(u)
-
+                        // console.log(u);
                     }
                     Cube[_0xd590[375]][_0xd590[374]](_0xd590[373], _, !1)
                 }
@@ -2124,6 +2124,7 @@ function buildOutput(e) {
         x[_0xd590[416]](t),
         e[c][_0xd590[429]] = t;
     stp = e[_0xd590[12]];
+    // console.log(e);
     for (var c = 0; c < e[_0xd590[12]]; c++)
         e[c][_0xd590[367]] == _0xd590[41] && (step[c + 1] = 1),
         e[c][_0xd590[367]] == _0xd590[42] && (step[c + 1] = 2),
@@ -2143,6 +2144,7 @@ function buildOutput(e) {
         e[c][_0xd590[367]] == _0xd590[56] && (step[c + 1] = 16),
         e[c][_0xd590[367]] == _0xd590[57] && (step[c + 1] = 17),
         e[c][_0xd590[367]] == _0xd590[58] && (step[c + 1] = 18);
+    // console.log(step);
     kiirarrayt(),
     eddigkiir(0),
     $(_0xd590[135])[_0xd590[67]](),
