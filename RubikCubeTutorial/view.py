@@ -5,6 +5,7 @@ from RubikCubeTutorial.core.cube_utils.solver_algs import Kociemba, Optimal
 import cPickle as pickle
 import numpy as np
 from django.views.decorators.csrf import csrf_exempt
+from settings import STATES_LOC
 
 
 def getMainView(request):
@@ -14,6 +15,9 @@ def getMainView(request):
 
 @csrf_exempt
 def getInitState(request):
+    states = pickle.load(open(STATES_LOC, "rb"))['states']
+    randomStates = [state.tolist() for state in states]
+
     return JsonResponse({
         "FEToState": [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20, 33, 30, 27, 34, 31, 28, 35, 32, 29, 38, 41, 44, 37, 40, 43, 36, 39, 42, 51, 48, 45, 52, 49, 46, 53, 50, 47],
         "legalMoves": ["U_-1", "U_1", "D_-1", "D_1", "L_-1", "L_1", "R_-1", "R_1", "B_-1", "B_1", "F_-1", "F_1"],
@@ -46,18 +50,34 @@ def getInitState(request):
             "U_1": [6, 3, 0, 0, 1, 2, 2, 5, 8, 8, 7, 6, 47, 50, 53, 29, 32, 35, 38, 41, 44, 20, 23, 26]
         },
         "state": [2, 5, 8, 1, 4, 7, 0, 3, 6, 11, 14, 17, 10, 13, 16, 9, 12, 15, 20, 23, 26, 19, 22, 25, 18, 21, 24, 29, 32, 35, 28, 31, 34, 27, 30, 33, 42, 39, 36, 43, 40, 37, 44, 41, 38, 47, 50, 53, 46, 49, 52, 45, 48, 51],
-        "stateToFE": [2, 5, 8, 1, 4, 7, 0, 3, 6, 11, 14, 17, 10, 13, 16, 9, 12, 15, 20, 23, 26, 19, 22, 25, 18, 21, 24, 29, 32, 35, 28, 31, 34, 27, 30, 33, 42, 39, 36, 43, 40, 37, 44, 41, 38, 47, 50, 53, 46, 49, 52, 45, 48, 51]
+        "stateToFE": [2, 5, 8, 1, 4, 7, 0, 3, 6, 11, 14, 17, 10, 13, 16, 9, 12, 15, 20, 23, 26, 19, 22, 25, 18, 21, 24, 29, 32, 35, 28, 31, 34, 27, 30, 33, 42, 39, 36, 43, 40, 37, 44, 41, 38, 47, 50, 53, 46, 49, 52, 45, 48, 51],
+        "randomStates": randomStates,
     })
 
 
 @csrf_exempt
 def solveState(request):
     stateStr = request.POST.get('state')
-    # print(stateStr)
-    state = np.fromstring(stateStr[1:-1], sep=",", dtype=np.int32)
-    # print(state)
-    # solution = Kociemba().solve(state)
-    # solution = solve(state)
-    solution = Optimal.solve(state)
-    print(solution)
-    return solution
+    state = np.fromstring(stateStr[1:-1], sep=",", dtype=np.int64)
+    solution = solve(state)
+    dic_1 = {1: "", -1: "'"}
+    dic_2 = {1: "_1", -1: "_-1"}
+    dic_3 = {-1: "_1", 1: "_-1"}
+
+    moves = []
+    solve_text = []
+    moves_rev = []
+
+    for move in solution:
+        s1 = move[0] + dic_1[move[1]]
+        s2 = move[0] + dic_2[move[1]]
+        s3 = move[0] + dic_3[move[1]]
+        print("{} {} {}".format(move, s1, s2))
+        solve_text.append(s1)
+        moves.append(s2)
+        moves_rev.append(s3)
+    return JsonResponse({
+        "moves": moves,
+        "moves_rev": moves_rev,
+        "solve_text": solve_text,
+    })

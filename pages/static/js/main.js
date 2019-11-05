@@ -4,7 +4,7 @@ var rotateIdxs_new = null;
 var stateToFE = null;
 var FEToState = null;
 var legalMoves = null;
-
+var randomStates = null;
 var solveStartState = [];
 var solveMoves = [];
 var solveMoves_rev = [];
@@ -33,7 +33,6 @@ function reOrderArray(arr, indecies) {
         var index = indecies[i]
         temp.push(arr[index])
     }
-
     return temp;
 }
 
@@ -186,6 +185,10 @@ function nextState(moveTimeout = 0) {
                 nextState(moveTimeout)
             }, moveTimeout);
         } else {
+
+            index = randInt(0, randomStates.length)
+            setStickerColors(randomStates[index]);
+
             enableInput();
             if (solveMoves.length > 0) {
                 enableScroll();
@@ -193,7 +196,11 @@ function nextState(moveTimeout = 0) {
             }
         }
     } else {
+        index = randInt(0, randomStates.length)
+        setStickerColors(randomStates[index]);
+
         enableInput();
+
         if (solveMoves.length > 0) {
             enableScroll();
             setSolnText();
@@ -233,7 +240,7 @@ function solveCube() {
             setSolnText(true);
 
             moves = JSON.parse(JSON.stringify(solveMoves))
-
+                // console.log(moves)
             setTimeout(function() {
                 nextState(500)
             }, 500);
@@ -262,7 +269,8 @@ $(document).ready($(function() {
             rotateIdxs_new = response["rotateIdxs_new"];
             stateToFE = response["stateToFE"];
             FEToState = response["FEToState"];
-            legalMoves = response["legalMoves"]
+            legalMoves = response["legalMoves"];
+            randomStates = response["randomStates"];
             enableInput();
         },
         error: function(error) {

@@ -54,6 +54,7 @@ def heuristicFn_nnet(x):
 
 def solve(state):
     # get bfs solver
+
     BestFS_solve = search_utils.BestFS_solve(
         [state], heuristicFn_nnet, environment, bfs=0)
     # start search

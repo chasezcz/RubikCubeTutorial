@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
 # regist variable
 MODEL_LOC = BASE_DIR + '/models/cube3'
 MODEL_NAME = 'model.meta'
-
+STATES_LOC = BASE_DIR + '/models/cube3/states.pkl'
 
 METHOD = 'nnet'
 
