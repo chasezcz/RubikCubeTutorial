@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from RubikCubeTutorial.core.solver import solve
-from RubikCubeTutorial.core.cube_utils.solver_algs import Kociemba, Optimal
+from RubikCubeTutorial.core.cube_utils.solver_algs import Kociemba, Optimal, Optimal_2
 import cPickle as pickle
 import numpy as np
 from django.views.decorators.csrf import csrf_exempt
@@ -58,7 +58,10 @@ def getInitState(request):
 @csrf_exempt
 def solveState(request):
     stateStr = request.POST.get('state')
+    # stateStr = "[8,39,20,43,4,16,6,28,17,45,1,9,21,13,41,47,14,36,38,19,53,3,22,7,0,10,11,51,30,2,34,31,25,18,5,15,26,48,33,50,40,46,35,12,44,29,52,27,32,49,37,24,23,42]"
     state = np.fromstring(stateStr[1:-1], sep=",", dtype=np.int64)
+    print(stateStr)
+    solution = []
     solution = solve(state)
     dic_1 = {1: "", -1: "'"}
     dic_2 = {1: "_1", -1: "_-1"}
@@ -76,6 +79,7 @@ def solveState(request):
         solve_text.append(s1)
         moves.append(s2)
         moves_rev.append(s3)
+    print(moves)
     return JsonResponse({
         "moves": moves,
         "moves_rev": moves_rev,

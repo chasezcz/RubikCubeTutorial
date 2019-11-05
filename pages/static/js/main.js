@@ -186,8 +186,8 @@ function nextState(moveTimeout = 0) {
             }, moveTimeout);
         } else {
 
-            index = randInt(0, randomStates.length)
-            setStickerColors(randomStates[index]);
+            // index = randInt(0, randomStates.length)
+            // setStickerColors(randomStates[index]);
 
             enableInput();
             if (solveMoves.length > 0) {
@@ -196,8 +196,8 @@ function nextState(moveTimeout = 0) {
             }
         }
     } else {
-        index = randInt(0, randomStates.length)
-        setStickerColors(randomStates[index]);
+        // index = randInt(0, randomStates.length)
+        // setStickerColors(randomStates[index]);
 
         enableInput();
 
@@ -224,6 +224,7 @@ function solveCube() {
     disableInput();
     clearSoln();
     document.getElementById("solution_text").innerHTML = "SOLVING..."
+    console.log(JSON.stringify(state))
     $.ajax({
         url: '/solve',
         data: {

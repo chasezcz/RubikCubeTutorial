@@ -143,7 +143,7 @@ class Optimal_2:
         # Solve cube
         #print("Optimal solver input: %s" % (solveInput))
         result = subprocess.check_output(
-            ['./optiqtm', solveInput], cwd='./solvers/cube3/optimal/', stderr=subprocess.STDOUT)
+            ['./', solveInput], cwd='./', stderr=subprocess.STDOUT)
         moves_korf = [x for x in result.split(
             "\n")[-3].split(" ") if '(' not in x and ')' not in x]
         #print("Korf Moves: %s" % (moves_korf))
