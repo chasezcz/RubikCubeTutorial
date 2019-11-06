@@ -53,6 +53,7 @@
             <button disabled id="scramble" type="button">Scramble</button>
             <button disabled id="solve" type="button">Solve!</button>
         </div>
+        <div id="consumeTime"></div>
     </div>
   </center>
 </div>
