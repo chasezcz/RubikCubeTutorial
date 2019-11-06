@@ -31,3 +31,8 @@ def solveState(request):
         "moves_rev": moves_rev,
         "solve_text": solve_text,
     })
+
+
+def test(request):
+    # return test
+    return render(request, "index.html")

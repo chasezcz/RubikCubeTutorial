@@ -322,7 +322,51 @@ $(document).ready($(function() {
             nextState();
         }
     });
+    $('#toFlatView').on('click', function() {
+        disableRotateByMouse();
 
+        $("#top").removeClass("top");
+        $("#left").removeClass("left");
+        $("#front").removeClass("front");
+        $("#right").removeClass("right");
+        $("#back").removeClass("back");
+        $("#bottom").removeClass("bottom");
+
+        $("#top").addClass("flatTop");
+        $("#left").addClass("flatLeft");
+        $("#front").addClass("flatFront");
+        $("#right").addClass("flatRight");
+        $("#back").addClass("flatBack");
+        $("#bottom").addClass("flatBottom");
+
+        $("#cube").css("transform", "translateZ( -100px) rotateX( " + 0 + "deg) rotateY(" + 0 + "deg)")
+    });
+    $('#toThreeDView').on('click', function() {
+        enableRotateByMouse();
+        $("#top").removeClass("flatTop");
+        $("#left").removeClass("flatLeft");
+        $("#front").removeClass("flatFront");
+        $("#right").removeClass("flatRight");
+        $("#back").removeClass("flatBack");
+        $("#bottom").removeClass("flatBottom");
+
+
+        $("#top").addClass("top");
+        $("#left").addClass("left");
+        $("#front").addClass("front");
+        $("#right").addClass("right");
+        $("#back").addClass("back");
+        $("#bottom").addClass("bottom");
+
+
+        $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)")
+    });
+    enableRotateByMouse();
+    console.log("ready!");
+}));
+
+
+function enableRotateByMouse() {
     $('#cube_div').on("mousedown", function(ev) {
         lastMouseX = ev.clientX;
         lastMouseY = ev.clientY;
@@ -334,10 +378,19 @@ $(document).ready($(function() {
     $('#cube_div').on("mouseleave", function() {
         $('#cube_div').off("mousemove", mouseMoved);
     });
+}
 
-    console.log("ready!");
-}));
-
+function disableRotateByMouse() {
+    $('#cube_div').on("mousedown", function(ev) {
+        $('#cube_div').off("mousemove", mouseMoved);
+    });
+    $('#cube_div').off("mouseup", function() {
+        $('#cube_div').off("mousemove", mouseMoved);
+    });
+    $('#cube_div').off("mouseleave", function() {
+        $('#cube_div').off("mousemove", mouseMoved);
+    });
+}
 
 function mouseMoved(ev) {
     var deltaX = ev.pageX - lastMouseX;

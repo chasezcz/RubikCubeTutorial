@@ -1,7 +1,7 @@
 .cube_container {
     Margin: auto;
     width: 200px;
-    height: 200px;
+    height: 500px;
     position: relative;
     perspective: 1000px;
 }
@@ -46,30 +46,32 @@
 
 #cube .front {
     transform: rotateY(0deg) translateZ(100px);
+    top: 150px;
 }
 
 #cube .back {
     transform: rotateX(180deg) translateZ(100px);
+    top: 150px;
 }
 
 #cube .right {
     transform: rotateY(90deg) translateZ(100px);
+    top: 150px;
 }
 
 #cube .left {
     transform: rotateY(-90deg) translateZ(100px);
+    top: 150px;
 }
 
 #cube .top {
     transform: rotateX(90deg) translateZ(100px);
+    top: 150px;
 }
 
 #cube .bottom {
     transform: rotateX(-90deg) translateZ(100px);
-}
-
-#cube {
-    /*transform: translateZ( -100px);*/
+    top: 150px;
 }
 
 button {
@@ -91,4 +93,34 @@ button[disabled] {
     border: 1px solid #999999;
     background-color: #cccccc;
     color: #666666;
+}
+
+#cube .flatTop {
+    top: -47px;
+    left: -100px;
+}
+
+#cube .flatLeft {
+    top: 150px;
+    left: -297px;
+}
+
+#cube .flatFront {
+    top: 150px;
+    left: -100px;
+}
+
+#cube .flatRight {
+    top: 150px;
+    left: 97px;
+}
+
+#cube .flatBack {
+    top: 150px;
+    left: 294px;
+}
+
+#cube .flatBottom {
+    top: 347px;
+    left: -100px;
 }

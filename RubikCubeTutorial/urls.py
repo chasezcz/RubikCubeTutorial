@@ -22,4 +22,7 @@ from RubikCubeTutorial import view
 urlpatterns = [
     url(r'^$', view.getMainView),
     url(r'^solve$', view.solveState),
+
+    # just for css test
+    url(r'^test$', view.test),
 ]
