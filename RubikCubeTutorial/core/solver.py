@@ -62,26 +62,29 @@ def reOrderArray(arr, indecies):
 
 def solve(state):
     # get bfs solver
-    stateToFE = [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20,
-                 33, 30, 27, 34, 31, 28, 35, 32, 29, 38, 41, 44, 37, 40, 43, 36, 39, 42, 51, 48, 45, 52, 49, 46, 53, 50, 47]
-    newState = reOrderArray(state, stateToFE)
-    print(state)
-    print(newState)
+    # stateToFE = [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20,
+    #              33, 30, 27, 34, 31, 28, 35, 32, 29, 38, 41, 44, 37, 40, 43, 36, 39, 42, 51, 48, 45, 52, 49, 46, 53, 50, 47]
+    # newState = reOrderArray(state, stateToFE)
+    # print(state)
+    # print(newState)
 
     BestFS_solve = search_utils.BestFS_solve(
-        [newState], heuristicFn_nnet, environment, bfs=0)
+        [state], heuristicFn_nnet, environment, bfs=0)
+
     # start search
     isSolved, solveSteps, nodesGenerated_num = BestFS_solve.run(
         numParallel=settings.NNET_PARALLEL,
         depthPenalty=settings.DEPTH_PENALTY,
         verbose=settings.VERBOSE)
+
     # collect unuse memory
     BestFS_solve = []
     del BestFS_solve
     gc.collect()
     # get true solution and verify it
     soln = solveSteps[0]
-    assert(validSoln(newState, soln, environment))
+
+    assert(validSoln(state, soln, environment))
     return soln
 
 

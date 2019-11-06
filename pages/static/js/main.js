@@ -224,11 +224,13 @@ function solveCube() {
     disableInput();
     clearSoln();
     document.getElementById("solution_text").innerHTML = "SOLVING..."
-    console.log(JSON.stringify(state))
+    feState = reOrderArray(state, FEToState);
+    console.log(JSON.stringify(feState))
+
     $.ajax({
         url: '/solve',
         data: {
-            "state": JSON.stringify(state)
+            "state": JSON.stringify(feState)
         },
         type: 'POST',
         dataType: 'json',
