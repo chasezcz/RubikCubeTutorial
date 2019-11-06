@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from RubikCubeTutorial import view
 from django.views.generic import TemplateView
+
+from RubikCubeTutorial import view
 
 
 urlpatterns = [
     url(r'^$', view.getMainView),
-    url(r'^initState$', view.getInitState),
     url(r'^solve$', view.solveState),
 ]

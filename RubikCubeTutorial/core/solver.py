@@ -60,14 +60,17 @@ def reOrderArray(arr, indecies):
     return np.asarray(temp)
 
 
-def solve(state):
-    # get bfs solver
-    # stateToFE = [6, 3, 0, 7, 4, 1, 8, 5, 2, 15, 12, 9, 16, 13, 10, 17, 14, 11, 24, 21, 18, 25, 22, 19, 26, 23, 20,
-    #              33, 30, 27, 34, 31, 28, 35, 32, 29, 38, 41, 44, 37, 40, 43, 36, 39, 42, 51, 48, 45, 52, 49, 46, 53, 50, 47]
-    # newState = reOrderArray(state, stateToFE)
-    # print(state)
-    # print(newState)
+def validSoln(state, soln, Environment):
+    solnState = state
+    for move in soln:
+        solnState = Environment.next_state(solnState, move)
+    return(Environment.checkSolved(solnState))
 
+
+def solve(stateStr):
+    # convert state string to numpy array
+    state = np.fromstring(stateStr[1:-1], sep=",", dtype=np.int64)
+    # get bfs solver
     BestFS_solve = search_utils.BestFS_solve(
         [state], heuristicFn_nnet, environment, bfs=0)
 
@@ -81,15 +84,7 @@ def solve(state):
     BestFS_solve = []
     del BestFS_solve
     gc.collect()
+
     # get true solution and verify it
     soln = solveSteps[0]
-
-    assert(validSoln(state, soln, environment))
     return soln
-
-
-def validSoln(state, soln, Environment):
-    solnState = state
-    for move in soln:
-        solnState = Environment.next_state(solnState, move)
-    return(Environment.checkSolved(solnState))
