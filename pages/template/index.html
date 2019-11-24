@@ -1,317 +1,200 @@
-
-{% load static %}
+{% load static %} {% csrf_token %}
 <!DOCTYPE html>
-<html lang="zh">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script src="{% static 'js/jquery.js' %}"></script>
-	<script src="{% static 'js/solver.js' %}"></script>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/solver.css' %}" />
-	<title>魔方助手</title>
+<html>
 
-	<link rel="image_src" href="{% static 'img/og-rubiks-cube-solver.jpg' %}" />
+<head>
+    <title>Deep Cube</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!--增加弹窗-->
+    <meta charset="utf-8">
+
+    <style>
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 20%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=88);
+        }
+        
+        .white_content {
+            display: none;
+            position: fixed;
+            top: 37%;
+            left: 37%;
+            width: 28%;
+            height: 42%;
+            padding: 20px;
+            border: 10px solid rgb(23, 85, 126);
+            background-color: rgb(112, 150, 231);
+            text-align: center;
+            z-index: 1002;
+            overflow: auto;
+        }
+    </style>
+
+
+
+
+
+
+
+
 </head>
 
-<body class="lang-zh">
+<body>
 
-<header>
-	<div class="header">
-		<div class="headerInner clearfix">
-			<a class="bannerLogo" title="魔方助手" href=""></a>
-		</div>
-	</div>
-	<div id="switchViewWrap">
-		<div id="switchView">
-			<a id="tothreeDView" title="3D view" class="active">3D</a>
-			<a id="toflatView" title="Flat view">Flat</a>
-			<a id="tokociembaView" title="Kociemba view">Koci</a>
-			<a id="getHelp" class="scrollLink" title="Help" href="https://baike.baidu.com/item/魔方复原"></a>
-		</div>
-	</div>
-</header>
+    <!--增加弹窗-->
+    <button id="button_help" class="button" type="button"><a href="JavaScript:void(0)" onclick="openDialog()">HELP</a></button>
+    <center>
+        <div id="light" class="white_content">
+            <table>
+                <br>
+                <center>
+                    <h4>
 
-<div class="solverAndAd">
-	<div id="scrambler" class="cubeOrient13">
-		<div id="rubiksCubeSolver" class="clearfix">
-			<div id="hibaUzenet">
-				<div id="closeHibauzenet" title="Close the box">x</div>
-				<span id="hiba">Messages will be shown. For example when a cube is not scrambled properly.</span>
-			</div>
-			<div id="wrapCube" class="threeDView">
-				<div id="face1">
-					<span class="rotArrow" id="rotUp"></span>
-					<span class="rotArrow" id="rotUpI"></span>
-					<div data-field="1" class="color1" id="sticker1"><div></div></div>
-					<div data-field="2" class="color1" id="sticker2"><div></div></div>
-					<div data-field="3" class="color1" id="sticker3"><div></div></div>
-					<div data-field="4" class="color1" id="sticker4"><div></div></div>
-					<div data-field="5" class="color1" id="sticker5"><div></div></div>
-					<div data-field="6" class="color1" id="sticker6"><div></div></div>
-					<div data-field="7" class="color1" id="sticker7"><div></div></div>
-					<div data-field="8" class="color1" id="sticker8"><div></div></div>
-					<div data-field="9" class="color1" id="sticker9"><div></div></div>
-				</div>
-				<div id="face2">
-					<span class="rotArrow" id="rotLeft"></span>
-					<span class="rotArrow" id="rotLeftI"></span>
-					<div data-field="10" class="color2" id="sticker10"><div></div></div>
-					<div data-field="11" class="color2" id="sticker11"><div></div></div>
-					<div data-field="12" class="color2" id="sticker12"><div></div></div>
-					<div data-field="13" class="color2" id="sticker13"><div></div></div>
-					<div data-field="14" class="color2" id="sticker14"><div></div></div>
-					<div data-field="15" class="color2" id="sticker15"><div></div></div>
-					<div data-field="16" class="color2" id="sticker16"><div></div></div>
-					<div data-field="17" class="color2" id="sticker17"><div></div></div>
-					<div data-field="18" class="color2" id="sticker18"><div></div></div>
-				</div>
-				<div id="face3">
-					<span class="rotArrow" id="rotFront"></span>
-					<span class="rotArrow" id="rotFrontI"></span>
-					<div data-field="19" class="color3" id="sticker19"><div></div></div>
-					<div data-field="20" class="color3" id="sticker20"><div></div></div>
-					<div data-field="21" class="color3" id="sticker21"><div></div></div>
-					<div data-field="22" class="color3" id="sticker22"><div></div></div>
-					<div data-field="23" class="color3" id="sticker23"><div></div></div>
-					<div data-field="24" class="color3" id="sticker24"><div></div></div>
-					<div data-field="25" class="color3" id="sticker25"><div></div></div>
-					<div data-field="26" class="color3" id="sticker26"><div></div></div>
-					<div data-field="27" class="color3" id="sticker27"><div></div></div>
-				</div>
-				<div id="face4">
-					<span class="rotArrow" id="rotRight"></span>
-					<span class="rotArrow" id="rotRightI"></span>
-					<div data-field="28" class="color4" id="sticker28"><div></div></div>
-					<div data-field="29" class="color4" id="sticker29"><div></div></div>
-					<div data-field="30" class="color4" id="sticker30"><div></div></div>
-					<div data-field="31" class="color4" id="sticker31"><div></div></div>
-					<div data-field="32" class="color4" id="sticker32"><div></div></div>
-					<div data-field="33" class="color4" id="sticker33"><div></div></div>
-					<div data-field="34" class="color4" id="sticker34"><div></div></div>
-					<div data-field="35" class="color4" id="sticker35"><div></div></div>
-					<div data-field="36" class="color4" id="sticker36"><div></div></div>
-				</div>
-				<div id="face5">
-					<span class="rotArrow" id="rotBack"></span>
-					<span class="rotArrow" id="rotBackI"></span>
-					<div data-field="37" class="color5" id="sticker37"><div></div></div>
-					<div data-field="38" class="color5" id="sticker38"><div></div></div>
-					<div data-field="39" class="color5" id="sticker39"><div></div></div>
-					<div data-field="40" class="color5" id="sticker40"><div></div></div>
-					<div data-field="41" class="color5" id="sticker41"><div></div></div>
-					<div data-field="42" class="color5" id="sticker42"><div></div></div>
-					<div data-field="43" class="color5" id="sticker43"><div></div></div>
-					<div data-field="44" class="color5" id="sticker44"><div></div></div>
-					<div data-field="45" class="color5" id="sticker45"><div></div></div>
-				</div>
-				<div id="face6">
-					<span class="rotArrow" id="rotDown"></span>
-					<span class="rotArrow" id="rotDownI"></span>
-					<div data-field="46" class="color6" id="sticker46"><div></div></div>
-					<div data-field="47" class="color6" id="sticker47"><div></div></div>
-					<div data-field="48" class="color6" id="sticker48"><div></div></div>
-					<div data-field="49" class="color6" id="sticker49"><div></div></div>
-					<div data-field="50" class="color6" id="sticker50"><div></div></div>
-					<div data-field="51" class="color6" id="sticker51"><div></div></div>
-					<div data-field="52" class="color6" id="sticker52"><div></div></div>
-					<div data-field="53" class="color6" id="sticker53"><div></div></div>
-					<div data-field="54" class="color6" id="sticker54"><div></div></div>
-				</div>
-			</div>
-		</div>
-		<div id="wrapCubeSettings" class="threeDViewSettings">
-			<div id="threeDsettings">
-				<a id="floatingBacks" title="Floating hidden sides">Float</a>
-				<a id="transparency" title="Toggle transparency">Transp</a>
-				<div id="threeDrots">
-					<a title="Rotate to the left" id="turnLeft">Left</a>
-					<a title="Rotate to the right" id="turnRight">Right</a>
-					<a title="Turn upside down" id="turnUp">Flip</a>
-				</div>
-			</div>
-		</div>
-		<div id="vezerloPult">
-			<div id="palettaBackground">
-				<div id="wrapPaletta">
-					<a class="color1" title="White" data-color="1"></a>
-					<a class="color2" title="Orange" data-color="2"></a>
-					<a class="color3" title="Green" data-color="3"></a>
-					<a class="color4" title="Red" data-color="4"></a>
-					<a class="color5" title="Blue" data-color="5"></a>
-					<a class="color6" title="Yellow" data-color="6"></a>
-				</div>
-			</div>
-			<div id="cubeCommands">
-				<div id="cubeRotations">
-					<div class="row">
-						<a id="rotateF" title="Front clockwise" data-arrow="rotFront">F<span></span></a>
-						<a id="rotateR" title="Right clockwise" data-arrow="rotRight">R<span></span></a>
-						<a id="rotateU" title="Up clockwise" data-arrow="rotUp">U<span></span></a>
-						<a id="rotateB" title="Bottom clockwise" data-arrow="rotBack">B<span></span></a>
-						<a id="rotateL" title="Left clockwise" data-arrow="rotLeft">L<span></span></a>
-						<a id="rotateD" title="Down clockwise" data-arrow="rotDown">D<span></span></a>
-					</div>
-					<div class="row">
-						<a id="rotateFi" title="Front inverted" data-arrow="rotFrontI">F'<span></span></a>
-						<a id="rotateRi" title="Right inverted" data-arrow="rotRightI">R'<span></span></a>
-						<a id="rotateUi" title="Up inverted" data-arrow="rotUpI">U'<span></span></a>
-						<a id="rotateBi" title="Bottom inverted" data-arrow="rotBackI">B'<span></span></a>
-						<a id="rotateLi" title="Left inverted" data-arrow="rotLeftI">L'<span></span></a>
-						<a id="rotateDi" title="Down inverted" data-arrow="rotDownI">D'<span></span></a>
-					</div>
-				</div>
-				<div id="scrambleAlgWrap">
-					<div id="compiledScramble"></div>
-					<input type="text" name="scrambleAlg" id="scrambleAlg" maxlength="100" placeholder="F R2 U'" size="12">
-					<span title="Execute the algorithm" id="executeScrambleAlg">✔</span>
-					<span title="Play the algorithm" id="submitScrambleAlg">►</span>
-					<div id="inputScrambleError"></div>
-				</div>
-			</div>
-			<div id="cubeCommandList">
-				<span></span>
-				<a id="clearCube" title="去掉所有颜色"><span>无色</span></a>
-				<a id="resetCube" title="恢复成六个初始面">重设<span></span></a>
-				<a id="scrambleCube" title="随机打乱">打乱<span></span></a>
-				<a id="solveCube" title="快速求解" href="#" target="_blank">求解！<span></span></a>
-				<span></span>
-				<span class="fullWidth"></span>
-			</div>
+                        Use the mouse to turn the cube. &#13;&#10;
+                    </h4>
+                    <h4>
+                        Turn the faces with the U/D/L/R/B/F keys. Hold shift to turn faces couter-clockwise.
+                    </h4>
+                    <h4>
+                        Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!
+                    </h4>
+                </center>
 
-		</div>
-	</div>
-</div>
-
-<a class="floatingTutorial" id="tutorialLink" href="https://baike.baidu.com/item/%E9%AD%94%E6%96%B9%E5%A4%8D%E5%8E%9F" title="百度百科帮您解惑" target="_blank">
-</a>
-
-<div class="wrapArticle clearfix">
-	<div class="article" id="article">
-		<article>
-			<h1>魔方求解器</h1>
-			<p><strong>线上魔方求解器会计算出一个乱魔方的复原步骤。输入您魔方各面的颜色，点击 "求解"键，接着按照指示逐步完成复原。</strong></p>
-			<p>点击 “打乱" 键，试着自己旋转各面来复原被打乱的魔方。</p>
-			<h2>在您开始之前</h2>
-			<p>利用魔方上方的小标签来选择您最喜欢的视角，或是点击“帮助”以取得更多协助。</p>
-			<h2>设置乱魔方</h2>
-			<p>设置乱魔方的方式：</p>
-			<ol>
-				<li>由调色盘中选择一个颜色，再将它贴上魔方表面；或是直接在选择位置上点击多次切换颜色</li>
-				<li>
-					<div class="imageRight">
-						<img src="{% static 'img/rubiks-cube-solver.jpg' %}" alt="魔方助手" /><br />
-						<em><strong>D</strong>: 下层顺时针旋转</em>
-					</div>
-					使用旋转键来执行表面旋转
-					<h4>魔方记号</h4>
-					方块的六个旋转面是用字母来标记的： <br />
-					<strong>F (Front)</strong> - 前<br />
-					<strong>R (Right)</strong> - 右<br />
-					<strong>U (Up)</strong> - 上<br />
-					<strong>D (Down)</strong> - 下<br />
-					<strong>L (Left)</strong> - 左<br />
-					<strong>B (Back)</strong> - 后<br />
-					每个字母代表顺时针往该方向旋转九十度。 <br />
-					撇号代表逆时针旋转，数字“2”代表连续旋转两次。
-				</li>
-				<li>使用“打乱”键重洗；或是在任何时候点击“重设”，即可回到复原位置。</li>
-			</ol>
-			<h2>计算解答中</h2>
-			<p>在打乱位置正确配置后，点击“求解“键并等候程式找出最佳解答。按照指示执行所需的旋转步骤。 </p>
-			<h3>我如何能学习魔方解法？</h3>
-			<p>魔方解法看似困难，但是只要熟背几个演算法后就能学会。 <br />
-			<a href="https://cube3x3.com/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%AD%94%E6%96%B9/" target="_blank">来这里学习复原魔方！</a> </p>
-
-			<div id="hiddenLanguageBits">
-				<span id="langMessage0">zh</span>
-				<span id="langMessage1">每个颜色都必须被添加正好九次</span>
-				<span id="langMessage2">每一边都必须被添加一次</span>
-				<span id="langMessage3">一个边需要被反转</span>
-				<span id="langMessage4">每一角都必须被添加一次</span>
-				<span id="langMessage5">一个角需要被扭转</span>
-				<span id="langMessage6">两个边或两个角需要被交换</span>
-				<span id="langMessage7">旋转</span>
-				<span id="langMessage8">打乱无效</span>
-				<span id="langMessage9">找不出解答</span>
-				<span id="langMessage10">调整原始定向</span>
-				<span id="langMessage11">返回设置</span>
-				<span id="langMessage12">点击这里取得逐层解法</span>
-				<span id="langMessage13">点击“求解”键前请配置魔方打乱位置</span>
-				<span id="langMessage14">关闭本视窗并检查您的魔方！</span>
-
-				<span id="langMessage15">设置乱魔方后，点击“求解”键来找出还原方法。</span>
-				<span id="langMessage16">求解</span>
-				<span id="langMessage17">每个颜色都必须被添加正好九次</span>
-				<span id="langMessage18">一个颜色在中间区块不能使用一次以上。</span>
-
-				<span id="langMessage19">明确</span>
-				<span id="langMessage20">重设</span>
-				<span id="langMessage21">打乱</span>
-				<span id="langMessage22">错误</span>
-				<span id="langMessage23">分享此页面</span>
-				<span id="langMessage24">https://cube3x3.com/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E9%AD%94%E6%96%B9/</span>
-				<span id="langMessage25">如何解决魔方</span>
-				<span id="langMessage26">有无色的领域</span>
-				<span id="langMessage27"> </span>
-				<span id="langMessage28">计算解决方案</span>
-				<span id="langMessage29">请稍候！</span>
-				<span id="langMessage30"> </span>
-				<span id="langMessage31">白色</span>
-				<span id="langMessage32">橙子</span>
-				<span id="langMessage33">绿色</span>
-				<span id="langMessage34">红</span>
-				<span id="langMessage35">蓝色</span>
-				<span id="langMessage36">黄色</span>
-				<span id="langMessage37">起始位置</span>
-				<span id="langMessage38">完成！</span>
-				<span id="langMessage39"> </span>
-				<span id="langMessage40"> </span>
-			</div>
-		</article>
-	</div>
-</div>
+                <br>
+            </table>
+            <button id="button_sure"> <a href="javascript:void(0)" onclick="closeDialog()">OK</a></button>
+        </div>
+        </div>
+        <div id="fade" class="black_overlay"></div>
 
 
+        <!--音乐效果 
+    <div class="cube_music" style="position: absolute; top: 20px; left: 0px">
+        <embed src="http://music.163.com/song/media/outer/url?id=476592630.mp3" autostart=true loop=3 preload="auto" hidden=no volume="1">
+        </embed>
+    </div>>
+    -->
+        <div id="cube_music" class="music" style="position: absolute;">
+            <embed type="audio/mpeg" style="filter: blur();" src="http://music.163.com/song/media/outer/url?id=476592630.mp3" preload="autostart">
+            </embed>
+        </div>
+        <!--旋转效果 -->
+
+        <div>
+            <canvas id="canvas"></canvas>
+            <canvas id="snow"></canvas>
+            <div class="am-g" style="position: fixed; bottom: 0px;">
+                <div class="am-u-sm-12">
+                    <div style="z-index: 9999" id="player" class="aplayer"> </div>
+                </div>
+            </div>
+        </div>
 
 
+        <!--引入js -->
 
-<div id="debugMode">
-  <div id="input">
-	<div id="generate"><button id="generateButton">Generate Kociemba Tables</button></div>
-	<details id="progress" hidden="hidden">
-	  <summary><progress id="bar" value="0" max="22484"></progress></summary>
-	  <ol id="details">
-	  </ol>
-	</details>
-	<div id="random"><button id="randomButton">Random</button><button id="clean">Clean</button><button id="clear">Empty</button></div>
-	<div id="solver"><input type="text" id="cube" maxlength="54" spellcheck="false" value="____U________R________F________D________L________B____"><button id="verify">Verify</button><button id="solve" disabled="disabled">Solve</button></div>
-	<div id="settigns">
-		<label for="maxmoves">Max Moves: </label><input type="number" id="maxmoves" value="20" min="16" max="24">
-		<label for="maxtime">Max Time: </label><input type="number" id="maxtime" value="30">
-		<label for="autocomplete">Autocomplete</label> <input type="checkbox" id="autocomplete" checked="unchecked">
-	</div>
-	<div id="entry">
-	  <div id="currentColor"></div>
-	</div>
-  </div>
-  <div id="output">
-	<span id="outputText">Solution: <span id="solution"> </span></span>
-  </div>
-</div>
 
-<div class="footNotez">
-	<footer>
-		We use cookies that are necessary to enable you to use the website, and to collect visitor analytics. Please leave the website or adjust your browser settings accordingly.<br />
-		&copy;2019 Rubik's Cube Solver | <a href="/contact">Contact</a> | <a href="/sitemap">Site Map</a> | <a href="/privacy-terms">Privacy, Terms and Conditions</a> | Program by Módus Beke
-	</footer>
-</div>
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-61900924-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        <script src="{% static 'js/universe.js' %}"></script>
 
-  gtag('config', 'UA-61900924-1');
-</script>
+
+        <div class="container">
+            <center>
+                <h1> Solve the Cube </h1>
+                <div id="program_container" class="container">
+                    <div id="solution_container" class="container">
+                        <!--  步骤跳跃 ！-->
+                        <button disabled id="first_state" type="button">&#060;&#060;</button>
+                        <button disabled id="prev_state" type="button">&#060;</button>
+                        <button disabled id="next_state" type="button">&#062;</button>
+                        <button disabled id="last_state" type="button">&#062;&#062;</button>
+                        <h4 id="solution_text">Solution:</h4>
+                    </div>
+
+                    <div id="cube_div" class="container" style="padding: 60px">
+                        <section class="cube_container">
+                            <div id="cube">
+                                <figure id="front" class="front">
+                                </figure>
+                                <figure id="back" class="back">
+                                </figure>
+                                <figure id="right" class="right">
+                                </figure>
+                                <figure id="left" class="left">
+                                </figure>
+                                <figure id="top" class="top">
+                                </figure>
+                                <figure id="bottom" class="bottom">
+                                </figure>
+                            </div>
+                        </section>
+                    </div>
+
+                    <br>
+
+                    <!---        调整四按钮位置          -->
+                    <div id="button_container" class="container" style="padding-bottom:40px; padding-left:15px;">
+
+                        <button id="toThreeDView" type="button">三维立体</button>
+                        <button id="toFlatView" type="button">平面展开</button>
+
+                        <button disabled id="scramble" type="button">打乱</button>
+                        <button disabled id="solve" type="button">求解</button>
+                    </div>
+                    <!--***************   运行时间 ******************-->
+                    <div id="consumeTime" style="padding-bottom:180px"></div>
+                </div>
+            </center>
+        </div>
+
+        <!--
+        <br>
+        <center>
+            <h4>
+
+                Use the mouse to turn the cube. &#13;&#10;
+            </h4>
+            <h4>
+                Turn the faces with the U/D/L/R/B/F keys. Hold shift to turn faces couter-clockwise.
+            </h4>
+            <h4>
+                Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!
+            </h4>
+        </center>
+
+    </br>
+    -->
 </body>
+
+<script type="text/javascript">
+    $(function() {})
+
+    function openDialog() {
+        document.getElementById('light').style.display = 'block';
+        document.getElementById('fade').style.display = 'block'
+    }
+
+    function closeDialog() {
+        document.getElementById('light').style.display = 'none';
+        document.getElementById('fade').style.display = 'none'
+    }
+</script>
+
 </html>

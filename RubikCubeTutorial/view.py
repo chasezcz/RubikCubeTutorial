@@ -11,7 +11,7 @@ from RubikCubeTutorial.core.solver import solve
 
 def getMainView(request):
     # return the main page
-    return render(request, 'index')
+    return render(request, 'index.html')
 
 
 @csrf_exempt
@@ -31,8 +31,3 @@ def solveState(request):
         "moves_rev": moves_rev,
         "solve_text": solve_text,
     })
-
-
-def test(request):
-    # return test
-    return render(request, "index.html")
