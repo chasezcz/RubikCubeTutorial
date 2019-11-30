@@ -4,54 +4,25 @@
 
 <head>
     <title>Deep Cube</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
+
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
 
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- <script src="{% static 'js/main(1).js' %}"></script> -->
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-    <!--增加弹窗-->
-    <meta charset="utf-8">
-
-    <style>
-        .black_overlay {
-            display: none;
-            position: absolute;
-            top: 20%;
-            left: 0%;
-            width: 100%;
-            height: 100%;
-            z-index: 10;
-            -moz-opacity: 0.8;
-            opacity: .80;
-            filter: alpha(opacity=88);
-        }
-        
-        .white_content {
-            display: none;
-            position: fixed;
-            top: 37%;
-            left: 37%;
-            width: 28%;
-            height: 42%;
-            padding: 20px;
-            border: 10px solid rgb(23, 85, 126);
-            background-color: rgb(112, 150, 231);
-            text-align: center;
-            z-index: 1002;
-            overflow: auto;
-        }
-    </style>
-
-
-
-
-
 
 
 
@@ -59,13 +30,28 @@
 
 <body>
 
-    <!--增加弹窗-->
-    <button id="button_help" class="button" type="button"><a href="JavaScript:void(0)" onclick="openDialog()">HELP</a></button>
-    <center>
-        <div id="light" class="white_content">
-            <table>
-                <br>
-                <center>
+    <div id="day" class="day" style="width:1280px; height:1000px"></div>
+    <div id="night" class="night" style="width:1280px; height:1300px">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <audio id="aud" autoplay="autoplay" controls="controls" loop="loop" preload="true" src="http://music.163.com/song/media/outer/url?id=95676.mp3">你的浏览器版本太低，不支持audio标签
+         </audio>
+
+    <div class="container">
+        <center>
+            <!-- <h1 class="h1">Solve the cube</h1> -->
+            <div id="program_container" class="container">
+                <div id="solution_container" class="container">
+
+                    <button id="first_state" class="first_state" type="button">&#060;&#060;</button>
+                    <button id="prev_state" class="prev_state" type="button">&#060;</button>
+                    <button id="next_state" class="next_state" type="button">&#062;</button>
+                    <button id="last_state" class="last_state" type="button">&#062;&#062;</button>
+
+                </div>
+                <h4 id="solution_text" class="solution_text">求解步骤</h4>
+                <div id="solution_text1" class="solution_text1">
                     <h4>
 
                         Use the mouse to turn the cube. &#13;&#10;
@@ -76,125 +62,56 @@
                     <h4>
                         Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!
                     </h4>
-                </center>
+                </div>
+
+                <div id="cube_div" class="container" style="padding: 60px">
+                    <section class="cube_container">
+                        <div id="cube">
+                            <figure id="front" class="front">
+                            </figure>
+                            <figure id="back" class="back">
+                            </figure>
+                            <figure id="right" class="right">
+                            </figure>
+                            <figure id="left" class="left">
+                            </figure>
+                            <figure id="top" class="top">
+                            </figure>
+                            <figure id="bottom" class="bottom">
+                            </figure>
+                        </div>
+                    </section>
+                </div>
 
                 <br>
-            </table>
-            <button id="button_sure"> <a href="javascript:void(0)" onclick="closeDialog()">OK</a></button>
-        </div>
-        </div>
-        <div id="fade" class="black_overlay"></div>
 
+                <!---        调整四按钮位置          -->
+                <!-- <div id="button_container" class="container" style="padding-bottom:40px; padding-left:15px;"> -->
 
-        <!--音乐效果 
-    <div class="cube_music" style="position: absolute; top: 20px; left: 0px">
-        <embed src="http://music.163.com/song/media/outer/url?id=476592630.mp3" autostart=true loop=3 preload="auto" hidden=no volume="1">
-        </embed>
-    </div>>
-    -->
-        <div id="cube_music" class="music" style="position: absolute;">
-            <embed type="audio/mpeg" style="filter: blur();" src="http://music.163.com/song/media/outer/url?id=476592630.mp3" preload="autostart">
-            </embed>
-        </div>
-        <!--旋转效果 -->
+                <button id="toThreeDView" type="button">三维立体</button>
+                <button id="toFlatView" type="button">平面展开</button>
 
-        <div>
-            <canvas id="canvas"></canvas>
-            <canvas id="snow"></canvas>
-            <div class="am-g" style="position: fixed; bottom: 0px;">
-                <div class="am-u-sm-12">
-                    <div style="z-index: 9999" id="player" class="aplayer"> </div>
-                </div>
+                <button id="scramble" type="button">打乱</button>
+                <button id="solve" type="button">求解</button>
+                <button id="day_btn">白天</button>
+                <button id="night_btn">晚上</button>
+                <button id="first_btn">重置</button>
+                <!-- </div> -->
+                <!--***************   运行时间 ******************-->
+                <div id="consumeTime" style="padding-bottom:180px"></div>
             </div>
-        </div>
-
-
-        <!--引入js -->
-
-
-        <script src="{% static 'js/universe.js' %}"></script>
-
-
-        <div class="container">
-            <center>
-                <h1> Solve the Cube </h1>
-                <div id="program_container" class="container">
-                    <div id="solution_container" class="container">
-                        <!--  步骤跳跃 ！-->
-                        <button disabled id="first_state" type="button">&#060;&#060;</button>
-                        <button disabled id="prev_state" type="button">&#060;</button>
-                        <button disabled id="next_state" type="button">&#062;</button>
-                        <button disabled id="last_state" type="button">&#062;&#062;</button>
-                        <h4 id="solution_text">Solution:</h4>
-                    </div>
-
-                    <div id="cube_div" class="container" style="padding: 60px">
-                        <section class="cube_container">
-                            <div id="cube">
-                                <figure id="front" class="front">
-                                </figure>
-                                <figure id="back" class="back">
-                                </figure>
-                                <figure id="right" class="right">
-                                </figure>
-                                <figure id="left" class="left">
-                                </figure>
-                                <figure id="top" class="top">
-                                </figure>
-                                <figure id="bottom" class="bottom">
-                                </figure>
-                            </div>
-                        </section>
-                    </div>
-
-                    <br>
-
-                    <!---        调整四按钮位置          -->
-                    <div id="button_container" class="container" style="padding-bottom:40px; padding-left:15px;">
-
-                        <button id="toThreeDView" type="button">三维立体</button>
-                        <button id="toFlatView" type="button">平面展开</button>
-
-                        <button disabled id="scramble" type="button">打乱</button>
-                        <button disabled id="solve" type="button">求解</button>
-                    </div>
-                    <!--***************   运行时间 ******************-->
-                    <div id="consumeTime" style="padding-bottom:180px"></div>
-                </div>
-            </center>
-        </div>
-
-        <!--
-        <br>
-        <center>
-            <h4>
-
-                Use the mouse to turn the cube. &#13;&#10;
-            </h4>
-            <h4>
-                Turn the faces with the U/D/L/R/B/F keys. Hold shift to turn faces couter-clockwise.
-            </h4>
-            <h4>
-                Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!
-            </h4>
         </center>
+    </div>
+    </div>
 
-    </br>
-    -->
+    <!-- <script src="{% static 'js/universe.js' %}"></script>
+    <script src="{% static 'js/three.min.js'}"></script>
+    <script src="{% static 'js/day.js'}"></script> -->
+    <script src="../static/js/universe.js"></script>
+    <script src="../static/js/three.min.js"></script>
+    <script src="../static/js/day.js"></script>
+
 </body>
 
-<script type="text/javascript">
-    $(function() {})
-
-    function openDialog() {
-        document.getElementById('light').style.display = 'block';
-        document.getElementById('fade').style.display = 'block'
-    }
-
-    function closeDialog() {
-        document.getElementById('light').style.display = 'none';
-        document.getElementById('fade').style.display = 'none'
-    }
-</script>
 
 </html>

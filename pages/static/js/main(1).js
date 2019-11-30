@@ -280,28 +280,22 @@ $(document).ready($(function() {
     setStickerColors(initState);
     enableInput();
 
-
     //白天黑夜模式
-
 
     $("#day_btn").click(function() { //给白天按钮添加点击事件
         // $("#canvas").removeClass("night");
-        $("#day").css("display", "block");
-        $("#night").css("display", "none");
-        // $("#background").removeClass("white");
+        $("#background").css("display", "block");
+        $("#canvas").css("display", "none");
+        $("#background").removeClass("white");
     });
 
     $("#night_btn").click(function() { //给晚上按钮添加点击事件
-        // $("#background").css("display", "block");
-        // $("#background").addClass("white");
-        // $("#canvas").css("display", "block");
-        $("#day").css("display", "none");
-        $("#night").css("display", "block");
+        $("#background").css("display", "block");
+        $("#background").addClass("white");
+        $("#canvas").css("display", "block");
         console.log("这是晚上");
 
     });
-
-
 
 
     //Initial orientation
@@ -314,7 +308,7 @@ $(document).ready($(function() {
     $('#solve').click(function() {
 
         solveCube();
-        $("#solution_text").css("display", "inline");
+
         $("#first_state").css("display", "inline");
         $("#prev_state").css("display", "inline");
         $("#next_state").css("display", "inline");
@@ -325,9 +319,8 @@ $(document).ready($(function() {
         clearSoln();
         setStickerColors(initState);
         enableInput();
-
         //Initial orientation
-        $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
+        // $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
     })
 
 
