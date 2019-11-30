@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Deep Cube</title>
+    <title>深度魔方</title>
 
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,55 +16,41 @@
     <script src="{% static 'js/main.js' %}"></script>
 
 
+
     <!-- <script src="{% static 'js/main(1).js' %}"></script> -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 
 </head>
 
 <body>
 
     <div id="day" class="day" style="width:1280px; height:1000px"></div>
-    <div id="night" class="night" style="width:1280px; height:1300px">
-        <canvas id="canvas"></canvas>
-    </div>
+    <div id="night" class="night" style="width:1280px; height:1300px"><canvas id="canvas"></canvas></div>
 
     <audio id="aud" autoplay="autoplay" controls="controls" loop="loop" preload="true" src="http://music.163.com/song/media/outer/url?id=95676.mp3">你的浏览器版本太低，不支持audio标签
          </audio>
 
     <div class="container">
         <center>
-            <!-- <h1 class="h1">Solve the cube</h1> -->
             <div id="program_container" class="container">
                 <div id="solution_container" class="container">
-
                     <button id="first_state" class="first_state" type="button">&#060;&#060;</button>
                     <button id="prev_state" class="prev_state" type="button">&#060;</button>
                     <button id="next_state" class="next_state" type="button">&#062;</button>
                     <button id="last_state" class="last_state" type="button">&#062;&#062;</button>
-
                 </div>
+
                 <h4 id="solution_text" class="solution_text">求解步骤</h4>
                 <div id="solution_text1" class="solution_text1">
-                    <h4>
-
-                        Use the mouse to turn the cube. &#13;&#10;
-                    </h4>
-                    <h4>
-                        Turn the faces with the U/D/L/R/B/F keys. Hold shift to turn faces couter-clockwise.
-                    </h4>
-                    <h4>
-                        Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!
-                    </h4>
+                    <h4>Use the mouse to turn the cube. &#13;&#10;</h4>
+                    <h4>Turn the faces with the U/D/L/R/B/F keys. Hold shift to turn faces couter-clockwise.</h4>
+                    <h4>Press scramble to randomly scramble the cube. Press solve to solve the cube using deep learning!</h4>
                 </div>
 
-                <div id="cube_div" class="container" style="padding: 60px">
+                <div id="cube_div" class="container">
                     <section class="cube_container">
                         <div id="cube">
                             <figure id="front" class="front">
@@ -82,11 +68,7 @@
                         </div>
                     </section>
                 </div>
-
                 <br>
-
-                <!---        调整四按钮位置          -->
-                <!-- <div id="button_container" class="container" style="padding-bottom:40px; padding-left:15px;"> -->
 
                 <button id="toThreeDView" type="button">三维立体</button>
                 <button id="toFlatView" type="button">平面展开</button>
@@ -96,21 +78,14 @@
                 <button id="day_btn">白天</button>
                 <button id="night_btn">晚上</button>
                 <button id="first_btn">重置</button>
-                <!-- </div> -->
-                <!--***************   运行时间 ******************-->
-                <div id="consumeTime" style="padding-bottom:180px"></div>
             </div>
+            <div id="stepByStep"></div>
         </center>
     </div>
     </div>
-
-    <!-- <script src="{% static 'js/universe.js' %}"></script>
-    <script src="{% static 'js/three.min.js'}"></script>
-    <script src="{% static 'js/day.js'}"></script> -->
     <script src="../static/js/universe.js"></script>
     <script src="../static/js/three.min.js"></script>
     <script src="../static/js/day.js"></script>
-
 </body>
 
 

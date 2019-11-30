@@ -88,3 +88,12 @@ def solve(stateStr):
     # get true solution and verify it
     soln = solveSteps[0]
     return soln
+
+
+def solve_demo(stateStr):
+    return [
+        ["U", 1],
+        ["D", 1],
+        ["L", 1],
+        ["R", -1]
+    ]

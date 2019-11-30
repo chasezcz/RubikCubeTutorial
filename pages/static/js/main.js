@@ -182,24 +182,14 @@ function nextState(moveTimeout = 0) {
     if (moves.length > 0) {
         disableInput();
         disableScroll();
-        move = moves.shift() // get Move
 
-        //convert to python representation
-        state_rep = reOrderArray(state, FEToState)
-        newState_rep = JSON.parse(JSON.stringify(state_rep))
-
-        //swap stickers
-        for (var i = 0; i < rotateIdxs_new[move].length; i++) {
-            newState_rep[rotateIdxs_new[move][i]] = state_rep[rotateIdxs_old[move][i]]
-        }
+        newState = getNextState(state, moves.shift());
 
         // Change move highlight
         if (moveTimeout != 0) { //check if nextState is used for first_state click, prev_state,etc.
             solveIdx++
             setSolnText(setColor = true)
         }
-        //convert back to HTML representation
-        newState = reOrderArray(newState_rep, stateToFE)
 
         //set new state
         setStickerColors(newState)
@@ -229,7 +219,7 @@ function scrambleCube() {
     disableInput();
     clearSoln();
 
-    numMoves = randInt(100, 200);
+    numMoves = randInt(75, 100);
     for (var i = 0; i < numMoves; i++) {
         moves.push(legalMoves[randInt(0, legalMoves.length)]);
     }
@@ -258,14 +248,14 @@ function solveCube() {
             solution_text = response["solve_text"];
             solution_text.push("完成!");
             setSolnText(true);
+            generateSteps();
 
-            moves = JSON.parse(JSON.stringify(solveMoves));
+            enableInput();
+            enableScroll();
+
             var date2 = new Date();
             var seconds = ((date2.getTime() - date1.getTime()) / 1000);
-            document.getElementById("consumeTime").textContent = "本次计算用了" + seconds + " s"
-            setTimeout(function() {
-                nextState(500);
-            }, 500);
+            document.getElementById("consumeTime").textContent = "本次计算用了" + seconds + " s";
         },
         error: function(error) {
             console.log(error);
@@ -323,11 +313,12 @@ $(document).ready($(function() {
     $("#first_btn").click(function() {
         disableInput();
         clearSoln();
+        document.getElementById("stepByStep").innerHTML = "";
         setStickerColors(initState);
         enableInput();
 
         //Initial orientation
-        $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
+        $("#cube").css("transform", "translateZ( -100px) rotateX( -30 deg) rotateY( -30 deg)");
     })
 
 
@@ -402,7 +393,7 @@ $(document).ready($(function() {
         $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)")
     });
     enableRotateByMouse();
-    console.log("ready!");
+
 }));
 
 
@@ -443,4 +434,77 @@ function mouseMoved(ev) {
     rotX -= deltaY * 0.5;
 
     $("#cube").css("transform", "translateZ( -100px) rotateX( " + rotX + "deg) rotateY(" + rotY + "deg)");
+}
+
+function getNextState(targetState, targetMove) {
+    //convert to python representation
+    state_rep = reOrderArray(targetState, FEToState);
+    newState_rep = JSON.parse(JSON.stringify(state_rep));
+
+    // console.log("getNextState", targetMove);
+    //swap stickers
+    for (j = 0; j < rotateIdxs_new[targetMove].length; j++) {
+        newState_rep[rotateIdxs_new[targetMove][j]] = state_rep[rotateIdxs_old[targetMove][j]];
+    }
+
+    //convert back to HTML representation
+    newState = reOrderArray(newState_rep, stateToFE);
+
+    //set new state
+    return newState;
+}
+
+function generateSteps() {
+    // 1. create html support of init state
+    var targetState = state,
+        targetMove = "init";
+
+    initStateDiv = generateStateHtml(targetState, targetMove);
+    document.getElementById("stepByStep").appendChild(initStateDiv);
+
+    // 2. for each state build its state_figure, and create html support of it
+    for (i = 0; i < solveMoves.length; i++) {
+        targetMove = solveMoves[i];
+        targetState = getNextState(targetState, targetMove);
+        sbsStep = generateStateHtml(targetState, targetMove);
+        document.getElementById("stepByStep").appendChild(sbsStep);
+    }
+}
+
+function generateStateHtml(targetState, targetMove) {
+    var stepDiv = document.createElement("div");
+    stepDiv.className = "stepDiv";
+    stepDiv.id = "stepDiv";
+
+    // 1. add label of step.
+    var stepLabel = document.createElement("div");
+    stepLabel.className = "stepLabel";
+    stepLabel.id = "stepLabel";
+    if (targetMove == "init") {
+        stepLabel.textContent = "起始位置";
+    } else {
+        stepLabel.textContent = targetMove;
+    }
+    stepDiv.appendChild(stepLabel);
+
+    // 2. add cube div
+    var littleCube = document.createElement('div');
+    littleCube.className = "littleCube";
+    littleCube.id = "littleCube";
+    idx = 0
+    for (var i = 0; i < faceNames.length; i++) {
+        var faceName = document.createElement('figure');
+        faceName.className = faceNames[i];
+        for (j = 0; j < 9; j++) {
+            var iDiv = document.createElement('div');
+            iDiv.className = 'stepSticker';
+            iDiv.style["background-color"] = colorMap[Math.floor(targetState[idx] / 9)]
+            faceName.appendChild(iDiv);
+            idx = idx + 1
+        }
+        littleCube.appendChild(faceName);
+    }
+    stepDiv.appendChild(littleCube);
+
+    return stepDiv;
 }
